@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edinburgh University Superconducting Group - Innovating for the Future</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #003d7a;
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark-color);
+        }
+
+        /* Contact section title color */
+        #contact .section-title {
+            color: #ffffff;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #777;
+        }
+
+        .py-1 { padding: 1rem 0; }
+        .py-2 { padding: 2rem 0; }
+        .py-3 { padding: 3rem 0; }
+        .py-4 { padding: 4rem 0; }
+        .py-5 { padding: 5rem 0; }
+
+        .my-1 { margin: 1rem 0; }
+        .my-2 { margin: 2rem 0; }
+        .my-3 { margin: 3rem 0; }
+        .my-4 { margin: 4rem 0; }
+        .my-5 { margin: 5rem 0; }
+
+        /* Header - FIXED NAVIGATION STYLES */
+        #header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        #header.scrolled {
+            background: #fff;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Logo adjustments */
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            white-space: nowrap;
+        }
+
+        /* Navigation menu - fixed styles */
+        nav {
+            margin-left: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-menu li {
+            white-space: nowrap;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            overflow: hidden;
+            margin-top: 80px; /* Add space for fixed header */
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        #hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            z-index: 5;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .overview-box {
+            background: var(--light-color);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .overview-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .overview-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .overview-icon {
+            font-size: 1.8rem;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .overview-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        #about {
+            background: #fff;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .about-img img {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Vision and Mission */
+        .vision-mission {
+            background: var(--light-color);
+        }
+
+        .vm-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .vm-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .vm-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .vm-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Team Section */
+        #team {
+            background: #fff;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Team Member Show/Hide */
+        .hidden {
+            display: none !important;
+        }
+
+        .show-more-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        #show-more-team {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #show-more-team:hover {
+            background-color: #003d7a;
+        }
+
+        /* Team Member Cards */
+        .team-member {
+            background: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-img {
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.5s ease;
+        }
+
+        .team-member:hover .member-img img {
+            transform: scale(1.05);
+        }
+
+        .member-info {
+            padding: 20px;
+        }
+
+        .member-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .member-role {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .member-bio {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: var(--light-color);
+            border-radius: 50%;
+            color: var(--dark-color);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: var(--light-color);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-img {
+            height: 250px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: white;
+            margin-bottom: 15px;
+        }
+
+        .project-img img {
+            max-width: 95%;
+            max-height: 95%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            transition: all 0.5s ease;
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .project-category {
+            display: inline-block;
+            background: var(--light-color);
+            color: var(--dark-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .project-desc {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        /* Laboratory Section */
+        .lab-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .lab-description p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .lab-list {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .lab-list li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .lab-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 15px;
+        }
+
+        .lab-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .lab-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .lab-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .video-container {
+            grid-column: span 2;
+            width: 100%;
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Lab link button */
+        .lab-link-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* News Section */
+        #news {
+            background: var(--light-color);
+        }
+
+        .news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .news-item {
+            display: flex;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-date {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 100px;
+            padding: 20px;
+            background: var(--primary-color);
+            color: #fff;
+            text-align: center;
+        }
+
+        .day {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .month, .year {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .news-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .news-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            transition: color 0.3s ease;
+        }
+
+        .news-item:hover .news-title {
+            color: var(--primary-color);
+        }
+
+        .news-excerpt {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: var(--light-color);
+            color: var(--dark-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .news-read-more {
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .news-read-more:hover {
+            color: #003d7a;
+            text-decoration: underline;
+        }
+
+        .view-all-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/api/placeholder/1200/800') no-repeat center center/cover;
+            color: #fff;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-form button {
+            background: var(--primary-color);
+            border: none;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: #003d7a;
+        }
+
+        /* Footer */
+        #footer {
+            background: var(--dark-color);
+            color: #fff;
+            padding: 50px 0 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .footer-links h3,
+        .footer-subscribe h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #ccc;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .footer-subscribe p {
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .subscribe-form {
+            display: flex;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .subscribe-form button {
+            background: var(--primary-color);
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .project-img {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+
+            .nav-menu {
+                gap: 15px;
+            }
+
+            .nav-menu a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-container,
+            .lab-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img,
+            .lab-gallery {
+                order: -1;
+                margin-bottom: 30px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background: #fff;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: all 0.4s ease;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 15px 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .lab-gallery,
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-container {
+                grid-column: 1;
+            }
+
+            .lab-image {
+                height: 180px;
+            }
+
+            .news-item {
+                flex-direction: column;
+            }
+
+            .news-date {
+                flex-direction: row;
+                width: 100%;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .day, .month, .year {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="Pic/UoE.png" alt="Team Logo">
+                <h1>UoE Supermachine Group</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#laboratory">Our Laboratory</a></li>
+                    <li><a href="#news">Recent News</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-toggle">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="video-background">
+            <video autoplay muted loop id="hero-video">
+                <source src="Video/序列 01.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="overlay"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Superconducting Motors: Engineering a Sustainable Future</h1>
+                <p>Our team is dedicated to revolutionizing motor design through superconducting technology, driving breakthrough developments in energy efficiency.</p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn">Our Projects</a>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Site Overview Section -->
+    <section class="site-overview py-5">
+        <div class="container">
+            <h2 class="section-title">Discover Our Research</h2>
+            <p class="section-subtitle">Explore what we offer and how we're advancing superconducting technology</p>
+
+            <div class="overview-grid">
+                <div class="overview-box" onclick="location.href='#about'">
+                    <h3><i class="overview-icon">🔍</i> About Us</h3>
+                    <p>Learn about our team of experts at the University of Edinburgh specializing in applied superconductivity, motor design, and cryogenic systems.</p>
+                </div>
+
+                <div class="overview-box" onclick="location.href='#team'">
+                    <h3><i class="overview-icon">👥</i> Our Team</h3>
+                    <p>Meet our professors, researchers, and students who collaborate to overcome challenges in superconducting technologies.</p>
+                </div>
+
+                <div class="overview-box" onclick="location.href='#projects'">
+                    <h3><i class="overview-icon">🔬</i> Projects</h3>
+                    <p>Explore our innovative work on superconducting wind turbines, aerospace motors, and flux pump technologies.</p>
+                </div>
+
+                <div class="overview-box" onclick="location.href='Lab.html'">
+                    <h3><i class="overview-icon">🏢</i> Laboratory</h3>
+                    <p>Tour our state-of-the-art facilities equipped with specialized cryogenic testing and measurement equipment.</p>
+                </div>
+
+                <div class="overview-box" onclick="location.href='#news'">
+                    <h3><i class="overview-icon">📰</i> Recent News</h3>
+                    <p>Stay updated with our latest research advancements, grant awards, conference presentations, and team achievements.</p>
+                </div>
+
+                <div class="overview-box" onclick="location.href='#contact'">
+                    <h3><i class="overview-icon">✉️</i> Contact</h3>
+                    <p>Connect with our research team to discuss collaboration opportunities, research inquiries, or student positions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <p class="section-subtitle">Learn about our journey and what drives us forward</p>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Who We Are</h2>
+                    <p>We are a research team at the University of Edinburgh specializing in applied superconductivity, electric motor design, and cryogenic cooling systems.</p>
+                    <p>Our group consists of professors, lecturers, postdoctoral researchers, and PhD students working together to overcome practical challenges in implementing superconducting technologies in electrical machines.</p>
+                    <p>Current research focuses on developing high-efficiency superconducting motors, optimizing cryogenic systems, and exploring applications in renewable energy, transportation, and industrial sectors.</p>
+                </div>
+                <div class="about-img">
+                    <img src="Pic/fusion.png" alt="Team Working">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision and Mission -->
+    <section class="vision-mission py-5">
+        <div class="container">
+            <div class="vm-container">
+                <div class="vm-box">
+                    <h3>Our Vision</h3>
+                    <p>To advance the practical implementation of superconducting technologies in electrical machines.</p>
+                    <p>We envision a future where superconducting motors contribute to more efficient and sustainable energy systems across transportation, industrial, and renewable energy applications.</p>
+                </div>
+                <div class="vm-box">
+                    <h3>Our Mission</h3>
+                    <p>To develop viable superconducting motor designs and cryogenic cooling solutions that overcome current technological barriers.</p>
+                    <p>We accomplish this by combining expertise in electrical engineering, materials science, and thermal management, while maintaining a focus on both scientific advancement and practical application.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <p class="section-subtitle">Our Team at the University of Edinburgh</p>
+
+            <!-- Main team members -->
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/MM.png" alt="Team Member 1">
+                    </div>
+                    <div class="member-info">
+                        <h3>Markus Mueller</h3>
+                        <div class="member-role">Professor</div>
+                        <p class="member-bio">Royal Academy of Engineering Chair in Emerging Technologies to investigate new high power density high temperature superconducting machines for net-zero energy and transport applications.</p>
+                        <div class="social-links">
+                            <a href="Markus.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/HY.png" alt="Team Member 2">
+                    </div>
+                    <div class="member-info">
+                        <h3>Hongye Zhang</h3>
+                        <div class="member-role">Lecture</div>
+                        <p class="member-bio">Design & Analysis & Testing of Superconducting/Cryogenic Electric Machines, Numerical Modelling & Measurement of Superconductors, Hydrogen Energy, and Artificial Intelligence.</p>
+                         <div class="social-links">
+                            <a href="Hongye.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/Ozan.png" alt="Team Member 3">
+                    </div>
+                    <div class="member-info">
+                        <h3>Ozan Keysan</h3>
+                        <div class="member-role">Professor,PDRA</div>
+                        <p class="member-bio">He is currently an Assistant Professor with the Electrical and Electronics Engineering Department, METU. His current research interests include renewable energy, design, and optimization of electrical machines, smart grids, superconducting machines, and permanent-magnet machines.</p>
+                        <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional team members (initially hidden) -->
+            <div class="team-grid hidden" id="additional-team-members">
+                <!-- Team Member 4 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/Adil.jpg" alt="Team Member 4">
+                    </div>
+                    <div class="member-info">
+                        <h3>Adil Shah</h3>
+                        <div class="member-role">PDRA</div>
+                        <p class="member-bio">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                        <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/Shuangrong.jpg" alt="Team Member 5">
+                    </div>
+                    <div class="member-info">
+                        <h3>Shuangrong You</h3>
+                        <div class="member-role">PDRA</div>
+                        <p class="member-bio">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                         <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 6 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/Jiyuan.jpg" alt="Team Member 5">
+                    </div>
+                    <div class="member-info">
+                        <h3>Jiyuan Gao</h3>
+                        <div class="member-role">PHD Student</div>
+                        <p class="member-bio">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                         <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 7 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/zhenkai.jpg" alt="Team Member 5">
+                    </div>
+                    <div class="member-info">
+                        <h3>Zhenkai Cai</h3>
+                        <div class="member-role">PHD Student</div>
+                        <p class="member-bio">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                         <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 8 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/Qian.jpg" alt="Team Member 5">
+                    </div>
+                    <div class="member-info">
+                        <h3>Qian Dong</h3>
+                        <div class="member-role">PHD Student</div>
+                        <p class="member-bio">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                         <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 9 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/jiafu.jpg" alt="Team Member 6">
+                    </div>
+                    <div class="member-info">
+                        <h3>Jiafu Wei</h3>
+                        <div class="member-role">MSc supervisor</div>
+                        <p class="member-bio">Currently, he is the supervisor of 3 MSc students</p>
+                        <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 10 -->
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/chenxuan.jpg" alt="Team Member 5">
+                    </div>
+                    <div class="member-info">
+                        <h3>Chenxuan Zhang</h3>
+                        <div class="member-role">PHD Student</div>
+                        <p class="member-bio">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                         <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="Pic/mingzhe.jpg" alt="Team Member 5">
+                    </div>
+                    <div class="member-info">
+                        <h3>Mingzhe Sang</h3>
+                        <div class="member-role">PHD Student</div>
+                        <p class="member-bio">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                         <div class="social-links">
+                            <a href="Markus_Simple.html"><i>more</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show More button -->
+            <div class="show-more-container">
+                <button id="show-more-team" class="btn">Show More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Our Projects</h2>
+            <p class="section-subtitle">Explore some of our current work</p>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="Pic/wind turbine.png" alt="Project 1">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">Superconduncting Wind Turbine</span>
+                        <h3>Project One</h3>
+                        <p class="project-desc">A Royal Academy of Engineering funded project developing superconducting wind turbine generators with increased power density. Our research aims to overcome size and weight constraints in conventional designs while improving energy conversion efficiency.</p>
+                        <a href="Project1.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="Pic/electric machine.png" alt="Project 2">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">Aerospace Motor</span>
+                        <h3>Project Two</h3>
+                         <p class="project-desc">Development of high-speed superconducting motors for aerospace applications. This research addresses the challenges of creating lightweight, compact propulsion systems with superior power-to-weight ratios to enable more efficient and sustainable aircraft designs.</p>
+                        <a href="Project2.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="Pic/FluxPump.png" alt="Project 3">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">Flux Pump</span>
+                        <h3>Project Three</h3>
+                        <p class="project-desc">Contactless flux pump design enables contactless excitation of large-scale superconducting wind turbine rotor coils, charges high-inductance coils, significantly reduces system losses, and provides assurance for the excitation of large superconducting wind turbines.</p>
+                        <a href="Project3.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Laboratory Introduction Section -->
+    <section id="laboratory" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Our Laboratory</h2>
+            <p class="section-subtitle">Discover our research facilities and equipment</p>
+
+            <div class="lab-container">
+                <div class="lab-description">
+                    <p>The Superconducting Machine Laboratory at the University of Edinburgh is equipped with state-of-the-art facilities for developing and testing superconducting electrical machines and components.</p>
+
+                    <p>Our specialized equipment includes:</p>
+                    <ul class="lab-list">
+                        <li>Cryogenic testing chambers for evaluating superconducting components at temperatures down to 20K</li>
+                        <li>High-precision electromagnetic measurement systems</li>
+                        <li>Advanced manufacturing facilities for prototype development</li>
+                        <li>Computational resources for electromagnetic and thermal simulation</li>
+                        <li>Characterization equipment for superconducting materials</li>
+                    </ul>
+
+                    <p>The laboratory provides a collaborative environment where researchers, students, and industry partners can work together to advance superconducting machine technology from fundamental research to practical applications.</p>
+
+                    <div class="lab-link-container">
+                        <a href="Lab.html" class="btn">Explore Our Laboratory</a>
+                    </div>
+                </div>
+
+                <div class="lab-gallery">
+                    <div class="lab-image">
+                        <img src="Pic/Qianlab.jpg" alt="Cryogenic Testing Equipment">
+                    </div>
+                    <div class="lab-image">
+                        <img src="Pic/Adillab.png" alt="Measurement Systems">
+                    </div>
+                    <div class="video-container">
+                        <video autoplay muted loop>
+                            <source src="Video/磁悬浮.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent News Section -->
+    <section id="news" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Recent News</h2>
+            <p class="section-subtitle">Stay updated with our latest research advancements and team achievements</p>
+
+            <div class="news-container">
+                <!-- News Item 1 -->
+                <div class="news-item">
+                    <div class="news-date">
+                        <span class="day">15</span>
+                        <span class="month">Apr</span>
+                        <span class="year">2025</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">New Research Grant Awarded for Aerospace Applications</h3>
+                        <p class="news-excerpt">Our team has been awarded a significant research grant to further develop superconducting motors for next-generation aircraft propulsion systems. This project aims to reduce aviation emissions through higher efficiency electrical systems.</p>
+                        <div class="news-meta">
+                            <span class="news-category">Research Funding</span>
+                            <a href="#" class="news-read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 2 -->
+                <div class="news-item">
+                    <div class="news-date">
+                        <span class="day">02</span>
+                        <span class="month">Apr</span>
+                        <span class="year">2025</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Breakthrough in Cryogenic Cooling Efficiency</h3>
+                        <p class="news-excerpt">Our laboratory has achieved a significant improvement in cryogenic cooling system efficiency, reducing the energy consumption of our superconducting motor test platform by 35%. This advancement addresses one of the key challenges in practical superconducting machine implementation.</p>
+                        <div class="news-meta">
+                            <span class="news-category">Technical Achievement</span>
+                            <a href="#" class="news-read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 3 -->
+                <div class="news-item">
+                    <div class="news-date">
+                        <span class="day">20</span>
+                        <span class="month">Mar</span>
+                        <span class="year">2025</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">International Conference Presentation on Flux Pump Technologies</h3>
+                        <p class="news-excerpt">Our team presented our latest findings on contactless flux pump technologies at the International Conference on Applied Superconductivity in London. The research demonstrated novel methods for exciting large-scale superconducting wind turbine rotor coils.</p>
+                        <div class="news-meta">
+                            <span class="news-category">Conference</span>
+                            <a href="#" class="news-read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 4 -->
+                <div class="news-item">
+                    <div class="news-date">
+                        <span class="day">05</span>
+                        <span class="month">Mar</span>
+                        <span class="year">2025</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">New PhD Students Join Our Research Group</h3>
+                        <p class="news-excerpt">We are pleased to welcome three new PhD students to our research group. They will be focusing on superconducting material characterization, advanced cryogenic design, and electromagnetic modeling for our next-generation motor prototypes.</p>
+                        <div class="news-meta">
+                            <span class="news-category">Team Update</span>
+                            <a href="#" class="news-read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All News Button -->
+            <div class="view-all-container">
+                <a href="#" class="btn">View All News</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Get in touch with our research team</p>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Let's Connect</h2>
+                    <p>Have questions about our research, potential collaborations, or student opportunities? We'd be happy to hear from you.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i>📍</i>
+                            <div>
+                                <h3>Location</h3>
+                                <p>Faraday's Building, University of Edinburgh<br>Thomas Bayes Road, Edinburgh EH9 3JU</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i>✉️</i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>markus.mueller@ed.ac.uk<br>hongye.zhang@ed.ac.uk</p>
+
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i>📞</i>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>+86 139 3387 5615</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Your Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Your Email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" placeholder="Subject">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" placeholder="Your Message"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="/api/placeholder/120/60" alt="UoE Superconducting Group Logo">
+                    </div>
+                    <p>The University of Edinburgh Superconducting Group is dedicated to advancing the practical implementation of superconducting technologies in electrical machines.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#team">Our Team</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#laboratory">Our Laboratory</a></li>
+                        <li><a href="#news">Recent News</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Research Areas</h3>
+                    <ul>
+                        <li><a href="#">Applied Superconductivity</a></li>
+                        <li><a href="#">Electric Motor Design</a></li>
+                        <li><a href="#">Cryogenic Cooling</a></li>
+                        <li><a href="#">Wind Energy</a></li>
+                        <li><a href="#">Aerospace Applications</a></li>
+                        <li><a href="#">Fusion Energy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-subscribe">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive updates on our research and events.</p>
+                    <div class="subscribe-form">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 University of Edinburgh Superconducting Group. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for menu toggle and scrolling effects -->
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Show More Team Members
+        document.addEventListener('DOMContentLoaded', function() {
+            const showMoreBtn = document.getElementById('show-more-team');
+            const additionalMembers = document.getElementById('additional-team-members');
+
+            if (showMoreBtn && additionalMembers) {
+                showMoreBtn.addEventListener('click', function() {
+                    additionalMembers.classList.toggle('hidden');
+
+                    // Toggle button text
+                    if (additionalMembers.classList.contains('hidden')) {
+                        showMoreBtn.textContent = 'Show More';
+                    } else {
+                        showMoreBtn.textContent = 'Show Less';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
