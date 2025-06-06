@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aerospace Superconducting Motors | UoE Supermachine Group</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --header-height: 80px; /* Define header height as variable */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding-top: var(--header-height); /* Add padding to account for fixed header */
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #003d7a;
+            transform: scale(1.02);
+        }
+
+        /* Header */
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            white-space: nowrap;
+        }
+
+        nav {
+            height: 100%;
+        }
+
+        .nav-menu {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-menu li {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 0 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Project Hero Section */
+        .project-hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1200/800') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+
+        .project-hero-content {
+            max-width: 800px;
+        }
+
+        .project-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .project-hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Project Overview */
+        .project-overview {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark-color);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            align-items: center;
+        }
+
+        .overview-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .overview-text p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .overview-text ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .overview-text ul li {
+            margin-bottom: 10px;
+        }
+
+        .overview-img img {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Project Features */
+        .project-features {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .feature-card p {
+            color: #555;
+        }
+
+        /* Technical Details */
+        .technical-details {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .details-tabs {
+            margin-top: 40px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .tab-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .tab-content ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .tab-content ul li {
+            margin-bottom: 10px;
+        }
+
+        .tab-img {
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Gallery */
+        .project-gallery {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Project Roadmap */
+        .project-roadmap {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 30px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: #fff;
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            color: #555;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/api/placeholder/1200/800') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+        }
+
+        .contact-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .contact-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: #fff;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .overview-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .overview-img {
+                order: -1;
+            }
+
+            .project-hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item::after {
+                left: 21px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                padding: 10px 20px;
+            }
+
+            .project-hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="/api/placeholder/50/50" alt="UoE Supermachine Group Logo">
+                <h1>UoE Supermachine Group</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#team">Team</a></li>
+                    <li><a href="index.html#projects" class="active">Projects</a></li>
+                    <li><a href="index.html#laboratory">Laboratory</a></li>
+                    <li><a href="index.html#news">News</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Project Hero Section -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-hero-content">
+                <h1>High-Efficiency Aerospace Superconducting Motors</h1>
+                <p>Developing next-generation propulsion systems for sustainable aviation</p>
+                <a href="#overview" class="btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section id="overview" class="project-overview">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-text">
+                    <h2>Advancing Electric Aircraft Propulsion</h2>
+                    <p>Our aerospace motor research program focuses on developing compact, lightweight superconducting motors specifically designed for aircraft propulsion systems. We're addressing the critical challenges of creating propulsion solutions with superior power-to-weight ratios that can enable more efficient and sustainable aircraft designs.</p>
+                    <p>Key project objectives include:</p>
+                    <ul>
+                        <li>Design and develop superconducting motors with power densities exceeding 15 kW/kg, more than double current state-of-the-art</li>
+                        <li>Create lightweight cryogenic cooling systems suitable for aviation applications</li>
+                        <li>Optimize rotor and stator designs for high-efficiency operation across flight regimes</li>
+                        <li>Develop fault-tolerant architectures for aviation-grade reliability</li>
+                        <li>Demonstrate technology readiness through comprehensive ground testing program</li>
+                    </ul>
+                    <p>This research is conducted in collaboration with leading aerospace manufacturers and has applications in hybrid-electric regional aircraft, urban air mobility, and future all-electric commercial aviation.</p>
+                </div>
+                <div class="overview-img">
+                    <img src="/api/placeholder/600/400" alt="Aerospace Motor Design">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Features - Redesigned as Highlights Section -->
+    <section class="project-features" style="background: linear-gradient(to right, #f8f9fa, #e9ecef);">
+        <div class="container">
+            <h2 class="section-title">Aerospace Innovation Highlights</h2>
+
+            <div style="margin: 40px 0; display: flex; flex-direction: column; gap: 30px;">
+                <!-- Innovation 1 - Full Width -->
+                <div style="display: flex; align-items: center; background: white; border-radius: 12px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); overflow: hidden;">
+                    <div style="flex: 1; padding: 40px;">
+                        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 15px;">
+                            <span style="font-size: 2.5rem; margin-right: 15px;">✈️</span>
+                            Unmatched Power Density
+                        </h3>
+                        <p style="color: #555; font-size: 1.1rem; line-height: 1.6;">
+                            Our aerospace motors achieve breakthrough power densities of 15+ kW/kg—more than double current state-of-the-art technology. This exceptional performance is achieved through a combination of advanced superconducting materials, optimized electromagnetic design, and innovative cooling integration.
+                        </p>
+                        <p style="color: #555; font-size: 1.1rem; margin-top: 10px;">
+                            This power density breakthrough is a key enabler for electric aircraft, allowing propulsion systems that maintain sufficient power without the prohibitive weight penalties that have previously limited electric aviation.
+                        </p>
+                    </div>
+                    <div style="width: 40%; height: 300px; overflow: hidden;">
+                        <img src="/api/placeholder/500/300" alt="Power Density Comparison" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+
+                <!-- Innovations 2 & 3 - Side by Side -->
+                <div style="display: flex; gap: 30px;">
+                    <!-- Innovation 2 -->
+                    <div style="flex: 1; background: white; border-radius: 12px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); padding: 30px; display: flex; flex-direction: column;">
+                        <div style="text-align: center; font-size: 3rem; color: var(--primary-color); margin-bottom: 15px;">🌡️</div>
+                        <h3 style="font-size: 1.5rem; text-align: center; margin-bottom: 20px;">Flight-Compatible Cooling</h3>
+                        <p style="color: #555; flex-grow: 1;">
+                            Our lightweight cryogenic systems integrate directly with aircraft thermal management architecture while meeting stringent aviation requirements for weight, reliability, and safety. The system maintains optimal superconductor temperature with minimal power consumption during all flight phases.
+                        </p>
+                        <div style="margin-top: 20px; text-align: center;">
+                            <span style="display: inline-block; background: #e6f7ff; border-left: 4px solid var(--primary-color); padding: 10px 15px; font-weight: bold;">
+                                80% lighter than conventional cryogenic systems
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Innovation 3 -->
+                    <div style="flex: 1; background: white; border-radius: 12px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); padding: 30px; display: flex; flex-direction: column;">
+                        <div style="text-align: center; font-size: 3rem; color: var(--primary-color); margin-bottom: 15px;">⚙️</div>
+                        <h3 style="font-size: 1.5rem; text-align: center; margin-bottom: 20px;">Aviation-Grade Reliability</h3>
+                        <p style="color: #555; flex-grow: 1;">
+                            Our motors feature triple-redundant architecture with graceful degradation capabilities, ensuring continuous operation even if component failures occur. Every system undergoes rigorous testing to meet DO-160 environmental standards and DO-178C software certification requirements.
+                        </p>
+                        <div style="margin-top: 20px; text-align: center;">
+                            <span style="display: inline-block; background: #e6f7ff; border-left: 4px solid var(--primary-color); padding: 10px 15px; font-weight: bold;">
+                                99.997% reliability demonstrated in testing
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications - Redesigned as Visual Specs Section -->
+    <section class="technical-details" style="background: #fff; padding: 80px 0;">
+        <div class="container">
+            <h2 class="section-title">Technical Specifications</h2>
+
+            <div style="max-width: 900px; margin: 50px auto; background: #f8f9fa; border-radius: 15px; padding: 40px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);">
+                <!-- Spec Diagram - Top Section -->
+                <div style="position: relative; height: 380px; margin-bottom: 40px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); padding: 20px; overflow: hidden;">
+                    <img src="/api/placeholder/860/340" alt="Motor Cross-Section" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+
+                <!-- Spec Categories -->
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+                    <!-- Motor Design -->
+                    <div style="background: white; border-radius: 10px; padding: 25px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+                        <h3 style="color: var(--primary-color); font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 10px; font-size: 0.9rem;">01</span>
+                            Motor Design
+                        </h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Topology</td>
+                                <td style="padding: 8px 0; color: #555;">Dual-rotor axial flux</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Power Output</td>
+                                <td style="padding: 8px 0; color: #555;">1-2 MW</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Speed</td>
+                                <td style="padding: 8px 0; color: #555;">Up to 10,000 RPM</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Specific Power</td>
+                                <td style="padding: 8px 0; color: #555;">15 kW/kg</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Efficiency</td>
+                                <td style="padding: 8px 0; color: #555;">98%+</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Cryogenic System -->
+                    <div style="background: white; border-radius: 10px; padding: 25px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+                        <h3 style="color: var(--primary-color); font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 10px; font-size: 0.9rem;">02</span>
+                            Cooling System
+                        </h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Type</td>
+                                <td style="padding: 8px 0; color: #555;">Closed-cycle Stirling</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Working Fluid</td>
+                                <td style="padding: 8px 0; color: #555;">Neon</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Temperature</td>
+                                <td style="padding: 8px 0; color: #555;">30-40K</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Weight Ratio</td>
+                                <td style="padding: 8px 0; color: #555;">< 20% of motor weight</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Standards</td>
+                                <td style="padding: 8px 0; color: #555;">DO-160 compliant</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Materials -->
+                    <div style="background: white; border-radius: 10px; padding: 25px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+                        <h3 style="color: var(--primary-color); font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 10px; font-size: 0.9rem;">03</span>
+                            Materials
+                        </h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Superconductor</td>
+                                <td style="padding: 8px 0; color: #555;">REBCO HTS tapes</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Structure</td>
+                                <td style="padding: 8px 0; color: #555;">Carbon fiber composites</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Electronics</td>
+                                <td style="padding: 8px 0; color: #555;">SiC power electronics</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Magnets</td>
+                                <td style="padding: 8px 0; color: #555;">Halbach-array configuration</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Insulation</td>
+                                <td style="padding: 8px 0; color: #555;">Aviation-grade, high thermal conductivity</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Control Systems -->
+                    <div style="background: white; border-radius: 10px; padding: 25px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+                        <h3 style="color: var(--primary-color); font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 10px; font-size: 0.9rem;">04</span>
+                            Control Systems
+                        </h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Architecture</td>
+                                <td style="padding: 8px 0; color: #555;">Triple-redundant</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Algorithm</td>
+                                <td style="padding: 8px 0; color: #555;">Field-oriented control</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Monitoring</td>
+                                <td style="padding: 8px 0; color: #555;">Real-time with predictive analytics</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Fault Handling</td>
+                                <td style="padding: 8px 0; color: #555;">Graceful degradation capability</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; color: #555; font-weight: bold;">Certification</td>
+                                <td style="padding: 8px 0; color: #555;">DO-178C compliant</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Roadmap -->
+    <section class="project-roadmap">
+        <div class="container">
+            <h2 class="section-title">Project Roadmap</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023-2024</div>
+                        <div class="timeline-title">Concept Development & Design</div>
+                        <p class="timeline-desc">Completion of initial design, electromagnetic simulations, and material selection. Development of detailed cooling system concept.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024-2025</div>
+                        <div class="timeline-title">Component Testing</div>
+                        <p class="timeline-desc">Fabrication and testing of critical components including HTS coils, cooling system, and control electronics. Validation of key technologies.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025-2026</div>
+                        <div class="timeline-title">Prototype Development</div>
+                        <p class="timeline-desc">Assembly and ground testing of 250kW prototype motor. Performance verification and design optimization.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026-2027</div>
+                        <div class="timeline-title">Full-Scale Demonstration</div>
+                        <p class="timeline-desc">Construction and testing of full-scale 1MW motor system under simulated flight conditions. Validation of performance metrics.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2027-2028</div>
+                        <div class="timeline-title">Technology Transfer</div>
+                        <p class="timeline-desc">Collaboration with industry partners for technology maturation and preparation for integration into demonstration aircraft.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Gallery -->
+    <section class="project-gallery">
+        <div class="container">
+            <h2 class="section-title">Project Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/api/placeholder/300/250" alt="Motor Design Simulation">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/300/250" alt="HTS Coil Testing">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/300/250" alt="Cryogenic System">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/300/250" alt="Motor Prototype">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/300/250" alt="Test Facility">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/300/250" alt="Research Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Join Our Aerospace Innovation Network</h2>
+            <p>We are seeking aerospace industry partners, academic collaborators, and funding opportunities to accelerate the development of this transformative technology. If you're interested in electric aircraft propulsion or have expertise in relevant areas, we'd love to connect.</p>
+            <a href="index.html#contact" class="btn">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="/api/placeholder/120/60" alt="UoE Supermachine Group Logo">
+                    </div>
+                    <p>The University of Edinburgh Supermachine Group is dedicated to advancing the practical implementation of superconducting technologies in electrical machines.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#team">Team</a></li>
+                        <li><a href="index.html#projects">Projects</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Other Projects</h4>
+                    <ul>
+                        <li><a href="project1.html">Superconducting Wind Turbines</a></li>
+                        <li><a href="project2.html">Aerospace Electric Motors</a></li>
+                        <li><a href="project3.html">Flux Pump Technology</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 University of Edinburgh Supermachine Group. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Tab Functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to current button and corresponding content
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Scroll effects for header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.background = '#fff';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

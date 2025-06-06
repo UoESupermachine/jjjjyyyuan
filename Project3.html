@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactless Flux Pump Technology | UoE Supermachine Group</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --header-height: 80px; /* Define header height as variable */
+            --accent-color: #6a1b9a; /* Purple accent color for this project */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding-top: var(--header-height); /* Add padding to account for fixed header */
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #003d7a;
+            transform: scale(1.02);
+        }
+
+        .accent-btn {
+            background: var(--accent-color);
+        }
+
+        .accent-btn:hover {
+            background: #4a148c;
+        }
+
+        /* Header */
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            white-space: nowrap;
+        }
+
+        nav {
+            height: 100%;
+        }
+
+        .nav-menu {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-menu li {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 0 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Project Hero Section */
+        .project-hero {
+            height: 80vh;
+            background: linear-gradient(rgba(38, 0, 74, 0.8), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+
+        .project-hero-content {
+            max-width: 800px;
+        }
+
+        .project-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .project-hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Project Overview */
+        .project-overview {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark-color);
+        }
+
+        .accent-title {
+            color: var(--accent-color);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            align-items: center;
+        }
+
+        .overview-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .overview-text p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .overview-text ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .overview-text ul li {
+            margin-bottom: 10px;
+        }
+
+        .overview-img img {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .process-steps {
+            margin-top: 50px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 50px;
+        }
+
+        .step-number {
+            background: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 30px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .step-content p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .step-img {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Project Features */
+        .project-features {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .feature-card p {
+            color: #555;
+        }
+
+        /* Technical Details */
+        .technical-details {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .details-tabs {
+            margin-top: 40px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .tab-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .tab-content ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .tab-content ul li {
+            margin-bottom: 10px;
+        }
+
+        .tab-img {
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Research Results */
+        .research-results {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .result-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .result-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .result-content {
+            padding: 25px;
+            background: #fff;
+        }
+
+        .result-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .result-content p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .data-numbers {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .data-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .data-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .data-label {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* Publications Section */
+        .publications {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .publication-list {
+            margin-top: 40px;
+        }
+
+        .publication-item {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .publication-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .publication-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .publication-authors {
+            color: #555;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .publication-journal {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .publication-abstract {
+            color: #555;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .publication-link {
+            display: inline-block;
+            padding: 8px 15px;
+            background: var(--accent-color);
+            color: #fff;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .publication-link:hover {
+            background: #4a148c;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            padding: 80px 0;
+            background: linear-gradient(rgba(38, 0, 74, 0.8), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+        }
+
+        .contact-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .contact-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: #fff;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .overview-grid,
+            .features-grid,
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+
+            .overview-img {
+                order: -1;
+            }
+
+            .project-hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                padding: 10px 20px;
+            }
+
+            .project-hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .step {
+                flex-direction: column;
+            }
+
+            .step-number {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="/api/placeholder/50/50" alt="UoE Supermachine Group Logo">
+                <h1>UoE Supermachine Group</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#team">Team</a></li>
+                    <li><a href="index.html#projects" class="active">Projects</a></li>
+                    <li><a href="index.html#laboratory">Laboratory</a></li>
+                    <li><a href="index.html#news">News</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Project Hero Section -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-hero-content">
+                <h1>Contactless Flux Pump Technology</h1>
+                <p>Innovative solutions for exciting superconducting coils in large-scale applications</p>
+                <a href="#overview" class="btn accent-btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section id="overview" class="project-overview">
+        <div class="container">
+            <h2 class="section-title accent-title">Project Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-text">
+                    <h2>Revolutionizing Superconducting Coil Excitation</h2>
+                    <p>Our flux pump research focuses on developing contactless excitation technologies for large-scale superconducting coils. This innovation eliminates the need for conventional current leads, significantly reducing thermal losses and improving system efficiency.</p>
+                    <p>Key project objectives include:</p>
+                    <ul>
+                        <li>Design and optimize flux pump topologies capable of exciting high-inductance superconducting coils</li>
+                        <li>Develop reliable operation methodologies for long-term persistent current operation</li>
+                        <li>Create compact and efficient designs suitable for integration with wind turbine generators</li>
+                        <li>Minimize thermal losses and increase overall system efficiency</li>
+                        <li>Demonstrate technology at increasing scale and under relevant operating conditions</li>
+                    </ul>
+                    <p>This technology is particularly critical for large superconducting wind turbine generators, where conventional excitation methods would introduce prohibitive thermal losses and mechanical challenges.</p>
+                </div>
+                <div class="overview-img">
+                    <img src="/api/placeholder/600/400" alt="Flux Pump Technology">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How Flux Pump Technology Works</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Magnetic Field Variation</h3>
+                        <p>The flux pump creates controlled variations in magnetic field that interact with a superconducting circuit. This is typically achieved through rotating permanent magnets or oscillating magnetic fields.</p>
+                        <div class="step-img">
+                            <img src="/api/placeholder/800/300" alt="Magnetic Field Variation">
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Flux Quantization</h3>
+                        <p>These field variations induce quantized flux motion within the superconductor, creating a net DC voltage across a superconducting bridge element.</p>
+                        <div class="step-img">
+                            <img src="/api/placeholder/800/300" alt="Flux Quantization">
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Current Accumulation</h3>
+                        <p>This DC voltage drives current into the superconducting load coil, with current building up gradually over multiple operational cycles.</p>
+                        <div class="step-img">
+                            <img src="/api/placeholder/800/300" alt="Current Accumulation">
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Persistent Current Mode</h3>
+                        <p>Once the desired current level is reached, the flux pump can be operated in maintenance mode or switched off, with the current persisting in the superconducting circuit with minimal decay.</p>
+                        <div class="step-img">
+                            <img src="/api/placeholder/800/300" alt="Persistent Current Mode">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ magnet array with optimized pole configuration</li>
+                        <li>Specially designed superconducting bridge elements with controlled properties</li>
+                        <li>Modular construction allowing for scalability to different applications</li>
+                        <li>Integrated thermal management system for stable operation</li>
+                        <li>Compact design with minimal moving parts to enhance reliability</li>
+                        <li>Dual-stage architecture to achieve higher excitation rates</li>
+                    </ul>
+                    <p>The design incorporates detailed electromagnetic modeling to optimize flux transfer efficiency and minimize parasitic losses.</p>
+                    <div class="tab-img">
+                        <img src="/api/placeholder/800/400" alt="Flux Pump Design Details">
+                    </div>
+                </div>
+
+                <div id="tab2" class="tab-content">
+                    <h3>Operational Parameters</h3>
+                    <p>Our flux pump system operates with the following key parameters:</p>
+                    <ul>
+                        <li>Operational temperature range: 20-40K</li>
+                        <li>Maximum excitation voltage: 100-500 μV</li>
+                        <li>Charging rate: 0.1-1 A/min depending on load inductance</li>
+                        <li>Maximum achievable current: 200A in 10H coil demonstrated</li>
+                        <li>Long-term stability: current decay rate below 0.1% per day</li>
+                        <li>Power consumption: less than 20W for pump operation</li>
+                        <li>Operational reliability: MTBF >10,000 hours</li>
+                    </ul>
+                    <p>These parameters have been validated through extensive laboratory testing and demonstrate substantial improvements over conventional excitation methods.</p>
+                    <div class="tab-img">
+                        <img src="/api/placeholder/800/400" alt="Operational Parameters">
+                    </div>
+                </div>
+
+                <div id="tab3" class="tab-content">
+                    <h3>Integration Solutions</h3>
+                    <p>Our flux pump technology has been designed for seamless integration with various superconducting systems:</p>
+                    <ul>
+                        <li>Modular attachment system for wind turbine generator field coils</li>
+                        <li>Cryostat-compatible mechanical interfaces</li>
+                        <li>Thermal isolation structures to minimize heat transfer</li>
+                        <li>Standardized electrical connections for monitoring and control</li>
+                        <li>Vibration-resistant mounting for rotating applications</li>
+                        <li>Compact form factor for space-constrained installations</li>
+                    </ul>
+                    <p>Integration solutions are developed in close collaboration with system designers to ensure optimal performance in the target application.</p>
+                    <div class="tab-img">
+                        <img src="/api/placeholder/800/400" alt="Integration Solutions">
+                    </div>
+                </div>
+
+                <div id="tab4" class="tab-content">
+                    <h3>Performance Metrics</h3>
+                    <p>Our technology has achieved the following performance metrics:</p>
+                    <ul>
+                        <li>Thermal efficiency: >90% reduction in heat load compared to conventional current leads</li>
+                        <li>Excitation stability: field variation < 0.1% over 24 hours</li>
+                        <li>System reliability: successful operation through >100 thermal cycles</li>
+                        <li>Scale testing: demonstrated on coils up to 10H inductance</li>
+                        <li>Mechanical stability: operational under 3G acceleration conditions</li>
+                        <li>Control precision: current regulation to within ±0.5% of target value</li>
+                    </ul>
+                    <p>These metrics have been verified through rigorous testing programs and represent state-of-the-art performance for contactless excitation systems.</p>
+                    <div class="tab-img">
+                        <img src="/api/placeholder/800/400" alt="Performance Metrics">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Results -->
+    <section class="research-results">
+        <div class="container">
+            <h2 class="section-title">Research Results</h2>
+            <div class="results-container">
+                <div class="result-item">
+                    <div class="result-img">
+                        <img src="/api/placeholder/400/250" alt="Excitation Testing">
+                    </div>
+                    <div class="result-content">
+                        <h3>High-Inductance Coil Excitation</h3>
+                        <p>We successfully demonstrated excitation of a 10H superconducting coil to 200A using our contactless flux pump technology. The excitation process exhibited stable operation with minimal thermal impact on the cryogenic system.</p>
+                        <p>The results confirm the viability of this approach for large-scale wind turbine applications where high field currents must be maintained with minimal power input.</p>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-img">
+                        <img src="/api/placeholder/400/250" alt="Long-term Testing">
+                    </div>
+                    <div class="result-content">
+                        <h3>Long-term Stability Testing</h3>
+                        <p>Extended operation testing over 1000 hours demonstrated exceptional current stability with decay rates below 0.1% per day. The system maintained reliable operation through multiple simulated operational scenarios.</p>
+                        <p>These results confirm the technology's readiness for integration into critical applications where long-term field stability is essential.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="data-numbers">
+                <div class="data-item">
+                    <span class="data-number">90%</span>
+                    <span class="data-label">Reduction in Thermal Losses</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-number">200A</span>
+                    <span class="data-label">Maximum Current Achieved</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-number">10H</span>
+                    <span class="data-label">Highest Coil Inductance</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-number">1000+</span>
+                    <span class="data-label">Hours of Stable Operation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section class="publications">
+        <div class="container">
+            <h2 class="section-title">Key Publications</h2>
+            <div class="publication-list">
+                <div class="publication-item">
+                    <h3 class="publication-title">Contactless Excitation of Large-Scale Superconducting Wind Turbine Generator</h3>
+                    <p class="publication-authors">Zhang, H., Mueller, M., Keysan, O., et al.</p>
+                    <p class="publication-journal">IEEE Transactions on Applied Superconductivity, 2024</p>
+                    <p class="publication-abstract">This paper presents the development and testing of a contactless flux pump system for exciting large-scale superconducting wind turbine generator field coils. Experimental results demonstrate successful excitation of a 10H coil to 200A with minimal thermal impact.</p>
+                    <a href="#" class="publication-link">View Publication</a>
+                </div>
+                <div class="publication-item">
+                    <h3 class="publication-title">Optimized Flux Pump Design for High-Inductance Superconducting Coils</h3>
+                    <p class="publication-authors">Mueller, M., Shah, A., Zhang, H., et al.</p>
+                    <p class="publication-journal">Superconductor Science and Technology, 2023</p>
+                    <p class="publication-abstract">A detailed analysis of flux pump topologies optimized for high-inductance superconducting coils. This work presents electromagnetic modeling and experimental validation of multiple design configurations, identifying key parameters for performance optimization.</p>
+                    <a href="#" class="publication-link">View Publication</a>
+                </div>
+                <div class="publication-item">
+                    <h3 class="publication-title">Long-term Stability Analysis of Flux Pump Excited Superconducting Coils</h3>
+                    <p class="publication-authors">Keysan, O., Zhang, H., Mueller, M., et al.</p>
+                    <p class="publication-journal">Journal of Physics: Conference Series, 2023</p>
+                    <p class="publication-abstract">Extended testing of flux pump excited superconducting coils demonstrates exceptional current stability with decay rates below 0.1% per day. The paper presents detailed performance metrics and identifies factors influencing long-term stability.</p>
+                    <a href="#" class="publication-link">View Publication</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Partner With Us on Flux Pump Technology</h2>
+            <p>We are seeking industry partners, academic collaborators, and funding opportunities to further develop and implement this technology in large-scale energy applications. If you're interested in advancing superconducting technologies for wind turbines, fusion, or other industrial applications, we'd like to hear from you.</p>
+            <a href="index.html#contact" class="btn accent-btn">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="/api/placeholder/120/60" alt="UoE Supermachine Group Logo">
+                    </div>
+                    <p>The University of Edinburgh Supermachine Group is dedicated to advancing the practical implementation of superconducting technologies in electrical machines.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#team">Team</a></li>
+                        <li><a href="index.html#projects">Projects</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Other Projects</h4>
+                    <ul>
+                        <li><a href="project1.html">Superconducting Wind Turbines</a></li>
+                        <li><a href="project2.html">Aerospace Electric Motors</a></li>
+                        <li><a href="project3.html">Flux Pump Technology</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 University of Edinburgh Supermachine Group. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Tab Functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to current button and corresponding content
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Scroll effects for header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.background = '#fff';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

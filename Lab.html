@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Laboratory | UoE Supermachine Group</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding-top: var(--header-height);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: #003d7a;
+            transform: scale(1.02);
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #777;
+        }
+
+        /* Header */
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            white-space: nowrap;
+        }
+
+        nav {
+            height: 100%;
+        }
+
+        .nav-menu {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-menu li {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 0 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Lab Hero Section */
+        .lab-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23007bff" width="1200" height="600"/><g fill="%23ffffff" opacity="0.1"><circle cx="200" cy="150" r="80"/><circle cx="400" cy="300" r="120"/><circle cx="800" cy="200" r="100"/><circle cx="1000" cy="400" r="90"/></g></svg>') no-repeat center center/cover;
+            color: #fff;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .lab-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .lab-hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        /* Lab Overview Section */
+        .lab-overview {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .overview-card {
+            background: var(--light-color);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .overview-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+        .overview-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .overview-card p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        /* Equipment Section */
+        .equipment-section {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .equipment-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .equipment-image {
+            height: 220px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 3rem;
+        }
+
+        .equipment-content {
+            padding: 25px;
+        }
+
+        .equipment-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .equipment-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .equipment-specs {
+            background: var(--light-color);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Capabilities Section */
+        .capabilities-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .capabilities-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .capabilities-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+        }
+
+        .capabilities-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .capabilities-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .capabilities-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .capabilities-visual {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            padding: 60px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .capabilities-visual h4 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .gallery-item {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .gallery-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .gallery-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .gallery-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Featured Equipment Section */
+        .featured-equipment {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .equipment-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .equipment-feature {
+            background: var(--light-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .equipment-feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .equipment-feature-image {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .equipment-feature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .equipment-feature:hover .equipment-feature-image img {
+            transform: scale(1.03);
+        }
+
+        .equipment-feature-content {
+            padding: 30px;
+        }
+
+        .equipment-feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .equipment-feature-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .equipment-feature-specs {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Research Projects Section */
+        .research-projects {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            background: var(--light-color);
+            border-radius: 15px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .project-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23343a40" width="1200" height="400"/></svg>') no-repeat center center/cover;
+            color: #fff;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: #fff;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .copyright {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .lab-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .capabilities-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="Pic/UoE.png" alt="UoE Supermachine Group Logo">
+                <h1>UoE Supermachine Group</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#team">Team</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="#" class="active">Laboratory</a></li>
+                    <li><a href="index.html#news">News</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Lab Hero Section -->
+    <section class="lab-hero">
+        <div class="container">
+            <h1>Our Laboratory</h1>
+            <p>State-of-the-art facilities for superconducting machine research and development at the University of Edinburgh</p>
+        </div>
+    </section>
+
+    <!-- Lab Overview -->
+    <section class="lab-overview">
+        <div class="container">
+            <h2 class="section-title">Laboratory Overview</h2>
+            <p class="section-subtitle">Advanced research infrastructure supporting groundbreaking superconducting technology development</p>
+
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="overview-icon">🔬</div>
+                    <h3>Research Excellence</h3>
+                    <p>Our laboratory serves as a hub for cutting-edge research in superconducting electrical machines, combining theoretical knowledge with practical innovation to advance the field.</p>
+                </div>
+
+                <div class="overview-card">
+                    <div class="overview-icon">🏗️</div>
+                    <h3>Advanced Infrastructure</h3>
+                    <p>Equipped with state-of-the-art facilities including cryogenic systems, precision measurement equipment, and specialized manufacturing capabilities.</p>
+                </div>
+
+                <div class="overview-card">
+                    <div class="overview-icon">🤝</div>
+                    <h3>Collaborative Environment</h3>
+                    <p>A dynamic space where researchers, students, and industry partners collaborate to transform innovative ideas into practical solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section class="equipment-section">
+        <div class="container">
+            <h2 class="section-title">Key Equipment & Facilities</h2>
+            <p class="section-subtitle">Specialized equipment enabling comprehensive superconducting machine research</p>
+
+            <div class="equipment-grid">
+                <div class="equipment-card">
+                    <div class="equipment-image">❄️</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-title">Cryogenic Testing Systems</h3>
+                        <p class="equipment-description">Advanced cryogenic chambers capable of maintaining temperatures down to 20K for testing superconducting components under operational conditions.</p>
+                        <div class="equipment-specs">Temperature range: 20K - 300K | Precision: ±0.1K</div>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">📊</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-title">Electromagnetic Measurement Systems</h3>
+                        <p class="equipment-description">High-precision instrumentation for measuring magnetic fields, current distribution, and electromagnetic properties of superconducting materials.</p>
+                        <div class="equipment-specs">Field range: 0-15T | Current: 0-1000A</div>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">🔧</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-title">Manufacturing Facilities</h3>
+                        <p class="equipment-description">Comprehensive manufacturing capabilities for prototype development, including CNC machining, 3D printing, and specialized assembly equipment.</p>
+                        <div class="equipment-specs">Precision: ±0.01mm | Materials: Various metals, ceramics, composites</div>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">💻</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-title">Computational Resources</h3>
+                        <p class="equipment-description">High-performance computing clusters for electromagnetic simulation, thermal analysis, and optimization of superconducting machine designs.</p>
+                        <div class="equipment-specs">Processing power: 500+ cores | Memory: 2TB RAM</div>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">⚡</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-title">Material Characterization</h3>
+                        <p class="equipment-description">Specialized equipment for analyzing superconducting material properties, including critical current measurement and AC loss characterization.</p>
+                        <div class="equipment-specs">Current range: 1mA - 1kA | Frequency: DC - 1kHz</div>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">🔋</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-title">Power Testing Platform</h3>
+                        <p class="equipment-description">High-power testing capabilities for evaluating complete superconducting machine systems under realistic operating conditions.</p>
+                        <div class="equipment-specs">Power: Up to 100kW | Voltage: 0-1000V</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="capabilities-section">
+        <div class="container">
+            <div class="capabilities-container">
+                <div class="capabilities-text">
+                    <h3>Research Capabilities</h3>
+                    <p>Our laboratory provides comprehensive capabilities for advancing superconducting machine technology from fundamental research to practical application.</p>
+
+                    <ul class="capabilities-list">
+                        <li>Design and optimization of superconducting electrical machines</li>
+                        <li>Cryogenic system design and thermal management</li>
+                        <li>Electromagnetic simulation and modeling</li>
+                        <li>Prototype development and testing</li>
+                        <li>Material characterization and property analysis</li>
+                        <li>System integration and performance evaluation</li>
+                        <li>Collaborative research with industry partners</li>
+                        <li>Training of graduate students and researchers</li>
+                    </ul>
+                </div>
+
+                <div class="capabilities-visual">
+                    <h4>Laboratory Statistics</h4>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-label">Active Projects</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Research Staff</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">500m²</div>
+                            <div class="stat-label">Lab Space</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">£5M+</div>
+                            <div class="stat-label">Equipment Value</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Laboratory Gallery</h2>
+            <p class="section-subtitle">Visual tour of our research facilities and ongoing experiments</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="Pic/Lab/Image (10).jpeg" alt="Superconducting Coil Testing Setup">
+                    </div>
+                    <div class="gallery-caption">
+                        <h4 class="gallery-title">Superconducting Coil Testing</h4>
+                        <p class="gallery-description">Race-track superconducting coil mounted in testing apparatus with precision measurement systems</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="Pic/Lab/Image (25).png" alt="Measurement and Control Systems">
+                    </div>
+                    <div class="gallery-caption">
+                        <h4 class="gallery-title">Measurement & Control Systems</h4>
+                        <p class="gallery-description">Advanced data acquisition and control systems for precise experimental monitoring</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="Pic/Lab/Image (41).jpeg" alt="Laboratory Workspace">
+                    </div>
+                    <div class="gallery-caption">
+                        <h4 class="gallery-title">Research Workspace</h4>
+                        <p class="gallery-description">Dedicated workspace for component preparation and experimental setup</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="Pic/Lab/Image (26).jpeg" alt="Cryogenic Test Setup">
+                    </div>
+                    <div class="gallery-caption">
+                        <h4 class="gallery-title">Cryogenic Test Configuration</h4>
+                        <p class="gallery-description">Specialized setup for low-temperature testing of superconducting components</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="Pic/Lab/Image (49).jpeg" alt="Superconducting Sample Preparation">
+                    </div>
+                    <div class="gallery-caption">
+                        <h4 class="gallery-title">Sample Preparation Area</h4>
+                        <p class="gallery-description">Clean environment for preparing and handling sensitive superconducting materials</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="Pic/Lab/Image (17).jpeg" alt="Cryogenic Chamber Interior">
+                    </div>
+                    <div class="gallery-caption">
+                        <h4 class="gallery-title">Cryogenic Chamber Interior</h4>
+                        <p class="gallery-description">Interior view of cryogenic testing chamber showing measurement probes and sample holders</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Equipment Section -->
+    <section class="featured-equipment">
+        <div class="container">
+            <h2 class="section-title">Featured Research Equipment</h2>
+            <p class="section-subtitle">State-of-the-art facilities for superconducting research and development</p>
+
+            <div class="equipment-showcase">
+                <div class="equipment-feature">
+                    <div class="equipment-feature-image">
+                        <img src="Pic/Lab/Image (29).jpeg" alt="Cryogenic Testing System">
+                    </div>
+                    <div class="equipment-feature-content">
+                        <h3 class="equipment-feature-title">Cryogenic Testing Chambers</h3>
+                        <p class="equipment-feature-description">Large-scale cryogenic systems for testing superconducting components at ultra-low temperatures. Our chambers provide precise temperature control for comprehensive material characterization and performance evaluation.</p>
+                        <div class="equipment-feature-specs">Temperature range: 20K - 300K | Volume: 2000L | Precision: ±0.1K</div>
+                    </div>
+                </div>
+
+                <div class="equipment-feature">
+                    <div class="equipment-feature-image">
+                        <img src="Pic/Lab/Image (31).jpeg" alt="Vacuum Pumping equipment">
+                    </div>
+                    <div class="equipment-feature-content">
+                        <h3 class="equipment-feature-title">High-Vacuum Systems</h3>
+                        <p class="equipment-feature-description">Advanced vacuum pumping systems essential for cryogenic operations and material preparation. These systems ensure ultra-clean environments for sensitive superconducting experiments.</p>
+                        <div class="equipment-feature-specs">Pressure: 10⁻⁶ Pa | Pumping speed: 500 L/s | Multi-stage configuration</div>
+                    </div>
+                </div>
+
+                <div class="equipment-feature">
+                    <div class="equipment-feature-image">
+                        <img src="Pic/Lab/Image (47).jpeg" alt="High-Power Testing Platform">
+                    </div>
+                    <div class="equipment-feature-content">
+                        <h3 class="equipment-feature-title">High-Power Testing Platform</h3>
+                        <p class="equipment-feature-description">Specialized power electronics platform for testing superconducting machines under realistic operating conditions. Features high-current capabilities and precision measurement systems.</p>
+                        <div class="equipment-feature-specs">Power: Up to 100kW | Current: 0-1000A | Voltage: 0-1000V</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Activities Section -->
+    <section class="research-projects">
+        <div class="container">
+            <h2 class="section-title">Current Research Activities</h2>
+            <p class="section-subtitle">Active experiments and testing programs in our laboratory</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">🔬</div>
+                    <h3 class="project-title">Superconducting Coil Testing</h3>
+                    <p class="project-description">Comprehensive testing of race-track superconducting coils including critical current measurements, AC loss characterization, and thermal performance evaluation under various operating conditions.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">❄️</div>
+                    <h3 class="project-title">Cryogenic System Optimization</h3>
+                    <p class="project-description">Development and optimization of efficient cryogenic cooling systems for practical superconducting machine applications, focusing on reducing energy consumption and improving reliability.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">⚡</div>
+                    <h3 class="project-title">Electromagnetic Characterization</h3>
+                    <p class="project-description">Advanced electromagnetic testing and characterization of superconducting materials and components using precision measurement equipment and specialized testing protocols.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h2>Visit Our Laboratory</h2>
+            <p>Interested in collaboration, tours, or learning more about our research facilities?</p>
+            <a href="index.html#contact" class="btn">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#about">About</a>
+                    <a href="index.html#team">Team</a>
+                    <a href="index.html#projects">Projects</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 University of Edinburgh Superconducting Group. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

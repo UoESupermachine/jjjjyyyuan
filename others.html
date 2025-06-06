@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Generation Superconducting Wind Turbine | UoE Supermachine Group</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --gradient-primary: linear-gradient(135deg, #0056b3 0%, #17a2b8 100%);
+            --gradient-dark: linear-gradient(135deg, #343a40 0%, #1a1a1a 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            overflow-x: hidden;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient-primary);
+            color: #fff;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 86, 179, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Header with Glass Effect */
+        #header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        #header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            animation: fadeInRight 0.8s ease;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        /* Enhanced Hero Section */
+        .project-hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            margin-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 30, 60, 0.7), rgba(0, 86, 179, 0.7)), url('Pic/wind turbine.png') no-repeat center center/cover;
+            z-index: -2;
+        }
+
+        /* Animated particles background */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-150px) translateX(30px); }
+        }
+
+        .project-hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+            z-index: 10;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .project-hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-hero-content .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            font-weight: 300;
+        }
+
+        .project-hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Enhanced Overview Section */
+        .project-overview {
+            padding: 100px 0;
+            background: #fff;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--dark-color);
+            font-weight: 800;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .overview-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .overview-text .lead {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .overview-highlights {
+            background: var(--light-color);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .overview-highlights h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .overview-highlights ul {
+            list-style: none;
+        }
+
+        .overview-highlights li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .overview-highlights li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .overview-img {
+            position: relative;
+            animation: fadeInRight 1s ease;
+        }
+
+        .overview-img img {
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .overview-img:hover img {
+            transform: scale(1.02);
+        }
+
+        .img-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Key Metrics Section */
+        .key-metrics {
+            padding: 80px 0;
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .key-metrics::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .metric-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Innovation Features */
+        .innovation-features {
+            padding: 100px 0;
+            background: #f9f9f9;
+        }
+
+        .features-showcase {
+            margin-top: 60px;
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .feature-row:nth-child(even) {
+            direction: rtl;
+        }
+
+        .feature-row:nth-child(even) .feature-content {
+            direction: ltr;
+        }
+
+        .feature-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-content p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .feature-benefits {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-benefits li {
+            padding: 10px 0;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .feature-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .feature-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Technical Excellence Section */
+        .technical-excellence {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .tech-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-tab {
+            padding: 15px 30px;
+            background: var(--light-color);
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tab.active {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+        }
+
+        .tech-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tech-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tech-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .tech-specs {
+            background: var(--light-color);
+            border-radius: 20px;
+            padding: 40px;
+            height: 100%;
+        }
+
+        .tech-specs h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .spec-value {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .tech-visual {
+            position: relative;
+            height: 500px;
+            background: var(--gradient-dark);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tech-visual img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        /* Research Impact Section */
+        .research-impact {
+            padding: 100px 0;
+            background: var(--gradient-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .research-impact .section-title {
+            color: white;
+        }
+
+        .impact-timeline {
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin: 0 30px;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 100px 0;
+            background: #f9f9f9;
+        }
+
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 300px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h4 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .gallery-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before,
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .cta-section::before {
+            top: -150px;
+            left: -150px;
+        }
+
+        .cta-section::after {
+            bottom: -150px;
+            right: -150px;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .cta-content p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gradient-dark);
+            color: #fff;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-about h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .overview-grid,
+            .feature-row,
+            .tech-content-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .feature-row:nth-child(even) {
+                direction: ltr;
+            }
+
+            .project-hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .timeline-line {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="Pic/UoE.png" alt="UoE Supermachine Group Logo">
+                <h1>UoE Supermachine Group</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#team">Team</a></li>
+                    <li><a href="index.html#projects" class="active">Projects</a></li>
+                    <li><a href="index.html#laboratory">Laboratory</a></li>
+                    <li><a href="index.html#news">News</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Enhanced Hero Section -->
+    <section class="project-hero">
+        <div class="hero-bg"></div>
+        <div class="particles">
+            <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="top: 40%; left: 30%; animation-delay: 2s;"></div>
+            <div class="particle" style="top: 60%; left: 50%; animation-delay: 4s;"></div>
+            <div class="particle" style="top: 30%; left: 70%; animation-delay: 6s;"></div>
+            <div class="particle" style="top: 80%; left: 90%; animation-delay: 8s;"></div>
+        </div>
+        <div class="container">
+            <div class="project-hero-content">
+                <h1>Next-Generation Superconducting Wind Turbines</h1>
+                <p class="subtitle">Pioneering the Future of Renewable Energy</p>
+                <p>Revolutionary superconducting generator technology delivering unprecedented power density and efficiency for offshore wind applications.</p>
+                <div class="hero-stats">
+                                        <div class="stat-item">
+                        <div class="stat-number">40%</div>
+                        <div class="stat-label">Weight Reduction</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15MW</div>
+                        <div class="stat-label">Power Output</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Efficiency</div>
+                    </div>
+                </div>
+                <a href="#overview" class="btn">Explore Innovation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Overview Section -->
+    <section id="overview" class="project-overview">
+        <div class="container">
+            <h2 class="section-title">Transforming Wind Energy</h2>
+            <p class="section-subtitle">Royal Academy of Engineering Flagship Project</p>
+
+            <div class="overview-grid">
+                <div class="overview-text">
+                    <h2>Engineering Excellence Beyond Limits</h2>
+                    <p class="lead">Our groundbreaking research at the University of Edinburgh represents a paradigm shift in wind turbine technology. Supported by the Royal Academy of Engineering, we're developing superconducting generators that redefine what's possible in renewable energy.</p>
+
+                    <div class="overview-highlights">
+                        <h3>Mission-Critical Objectives</h3>
+                        <ul>
+                            <li>Achieve revolutionary 40% weight reduction through advanced superconducting materials</li>
+                            <li>Engineer cryogenic systems capable of withstanding extreme offshore conditions</li>
+                            <li>Optimize electromagnetic designs for maximum flux density and minimal losses</li>
+                            <li>Demonstrate economic viability for next-generation 15-20MW turbines</li>
+                            <li>Accelerate global transition to sustainable energy infrastructure</li>
+                        </ul>
+                    </div>
+
+                    <p>This transformative technology positions the UK at the forefront of the global renewable energy revolution, enabling offshore wind farms to generate clean power at unprecedented scales and efficiencies.</p>
+                </div>
+
+                <div class="overview-img">
+                    <img src="Pic/massive.png" alt="Superconducting Generator Visualization">
+                    <div class="img-caption">Advanced 3D electromagnetic modeling of our superconducting generator design</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics Section -->
+    <section class="key-metrics">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Performance Metrics</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Breakthrough achievements in superconducting technology</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-icon">⚡</span>
+                    <div class="metric-value">136W/kg</div>
+                    <div class="metric-label">Power Density</div>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon">📏</span>
+                    <div class="metric-value">4.0m</div>
+                    <div class="metric-label">Reduced Diameter</div>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon">❄️</span>
+                    <div class="metric-value">20-40K</div>
+                    <div class="metric-label">Operating Temp</div>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon">🔧</span>
+                    <div class="metric-value">25 Years</div>
+                    <div class="metric-label">Design Life</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Features -->
+    <section class="innovation-features">
+        <div class="container">
+            <h2 class="section-title">Revolutionary Innovations</h2>
+            <p class="section-subtitle">Cutting-edge technologies driving the future of wind energy</p>
+
+            <div class="features-showcase">
+                <!-- Feature 1 -->
+                <div class="feature-row">
+                    <div class="feature-content">
+                        <span class="feature-tag">Breakthrough Technology</span>
+                        <h3>High-Temperature Superconductors</h3>
+                        <p>Our advanced HTS materials operate at temperatures achievable with modern cryogenic systems, eliminating the need for expensive liquid helium cooling. This breakthrough enables practical deployment in offshore environments.</p>
+                        <ul class="feature-benefits">
+                            <li>REBCO and MgB₂ superconducting tapes with critical current densities exceeding 1000 A/mm²</li>
+                            <li>Operation at 20-40K using efficient closed-cycle cryocoolers</li>
+                            <li>Zero electrical resistance for unprecedented efficiency</li>
+                            <li>Robust performance under high magnetic fields up to 5T</li>
+                        </ul>
+                    </div>
+                    <div class="feature-image">
+                        <img src="Pic/MF.png" alt="Superconducting Materials">
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-row">
+                    <div class="feature-content">
+                        <span class="feature-tag">Advanced Design</span>
+                        <h3>Axial Flux Topology</h3>
+                        <p>Our innovative axial flux design with superconducting rotor coils delivers exceptional power density while maintaining structural simplicity. This configuration is optimized for large-scale offshore turbines.</p>
+                        <ul class="feature-benefits">
+                            <li>Compact form factor with 35% reduction in nacelle length</li>
+                            <li>Direct-drive configuration eliminating gearbox failures</li>
+                            <li>Modular construction for enhanced maintainability</li>
+                            <li>Optimized magnetic circuit minimizing flux leakage</li>
+                        </ul>
+                    </div>
+                    <div class="feature-image">
+                        <img src="Pic/GeneratorDesign.png" alt="Generator Design">
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-row">
+                    <div class="feature-content">
+                        <span class="feature-tag">Thermal Management</span>
+                        <h3>Next-Gen Cryogenic Systems</h3>
+                        <p>Our proprietary cooling technology maintains optimal superconductor performance while minimizing parasitic power consumption. The system is designed for 25+ years of maintenance-free operation.</p>
+                        <ul class="feature-benefits">
+                            <li>Redundant cooling paths ensuring 99.9% uptime</li>
+                            <li>Advanced thermal insulation reducing heat ingress by 80%</li>
+                            <li>Intelligent control systems optimizing cooling efficiency</li>
+                            <li>Salt-spray resistant design for marine environments</li>
+                        </ul>
+                    </div>
+                    <div class="feature-image">
+                        <img src="Pic/wind turbine.png" alt="Cooling System">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Excellence -->
+    <section class="technical-excellence">
+        <div class="container">
+            <h2 class="section-title">Technical Excellence</h2>
+            <p class="section-subtitle">Deep dive into our engineering innovations</p>
+
+            <div class="tech-tabs">
+                <button class="tech-tab active" onclick="showTechTab('materials')">Materials Science</button>
+                <button class="tech-tab" onclick="showTechTab('electromagnetic')">Electromagnetic Design</button>
+                <button class="tech-tab" onclick="showTechTab('cryogenics')">Cryogenic Engineering</button>
+                <button class="tech-tab" onclick="showTechTab('testing')">Testing & Validation</button>
+            </div>
+
+            <div id="materials" class="tech-content active">
+                <div class="tech-content-grid">
+                    <div class="tech-specs">
+                        <h3>Superconductor Specifications</h3>
+                        <ul class="spec-list">
+                            <li class="spec-item">
+                                <span class="spec-label">Material Type</span>
+                                <span class="spec-value">REBCO (2G HTS)</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Critical Temperature</span>
+                                <span class="spec-value">92K</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Operating Temperature</span>
+                                <span class="spec-value">30K</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Critical Current @ 30K, 3T</span>
+                                <span class="spec-value">450 A</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Engineering Current Density</span>
+                                <span class="spec-value">250 A/mm²</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Tape Width</span>
+                                <span class="spec-value">12 mm</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Total Conductor Length</span>
+                                <span class="spec-value">120 km</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tech-visual">
+                        <img src="Pic/MF.png" alt="Superconductor Analysis">
+                    </div>
+                </div>
+            </div>
+
+            <div id="electromagnetic" class="tech-content">
+                <div class="tech-content-grid">
+                    <div class="tech-specs">
+                        <h3>Electromagnetic Performance</h3>
+                        <ul class="spec-list">
+                            <li class="spec-item">
+                                <span class="spec-label">Rated Power</span>
+                                <span class="spec-value">15 MW</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Rated Speed</span>
+                                <span class="spec-value">10 RPM</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Air Gap Flux Density</span>
+                                <span class="spec-value">1.8 T</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Efficiency @ Rated Power</span>
+                                <span class="spec-value">98.2%</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Power Factor</span>
+                                <span class="spec-value">0.95</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">THD</span>
+                                <span class="spec-value">&lt; 3%</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Overload Capability</span>
+                                <span class="spec-value">120% for 10 min</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tech-visual">
+                        <img src="Pic/GeneratorDesign.png" alt="Electromagnetic Design">
+                    </div>
+                </div>
+            </div>
+
+            <div id="cryogenics" class="tech-content">
+                <div class="tech-content-grid">
+                    <div class="tech-specs">
+                        <h3>Cryogenic System Design</h3>
+                        <ul class="spec-list">
+                            <li class="spec-item">
+                                <span class="spec-label">Cooling Method</span>
+                                <span class="spec-value">Closed-Cycle Gifford-McMahon</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Cooling Capacity @ 30K</span>
+                                <span class="spec-value">2 kW</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Input Power</span>
+                                <span class="spec-value">65 kW</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">COP</span>
+                                <span class="spec-value">0.031</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Cooldown Time</span>
+                                <span class="spec-value">48 hours</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Redundancy</span>
+                                <span class="spec-value">N+1 Configuration</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">MTBF</span>
+                                <span class="spec-value">40,000 hours</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tech-visual">
+                        <img src="Pic/wind turbine.png" alt="Cryogenic System">
+                    </div>
+                </div>
+            </div>
+
+            <div id="testing" class="tech-content">
+                <div class="tech-content-grid">
+                    <div class="tech-specs">
+                        <h3>Validation Program</h3>
+                        <ul class="spec-list">
+                            <li class="spec-item">
+                                <span class="spec-label">Prototype Scale</span>
+                                <span class="spec-value">1:10 (1.5 MW)</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Test Duration</span>
+                                <span class="spec-value">6,000 hours</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Thermal Cycles</span>
+                                <span class="spec-value">100 cycles</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Load Cycles</span>
+                                <span class="spec-value">10 million</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Environmental Testing</span>
+                                <span class="spec-value">IEC 61400-1 Class S</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Grid Code Compliance</span>
+                                <span class="spec-value">ENTSO-E</span>
+                            </li>
+                            <li class="spec-item">
+                                <span class="spec-label">Certification</span>
+                                <span class="spec-value">DNV GL Type Certificate</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tech-visual">
+                        <img src="Pic/wind turbine.png" alt="Testing Facility">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Impact Timeline -->
+    <section class="research-impact">
+        <div class="container">
+            <h2 class="section-title">Research Impact & Milestones</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Our journey towards revolutionizing wind energy</p>
+
+            <div class="impact-timeline">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021</div>
+                        <h4>Project Inception</h4>
+                        <p>Secured £5M Royal Academy of Engineering funding. Assembled world-class research team. Initiated fundamental superconductor characterization studies.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022</div>
+                        <h4>Design Breakthrough</h4>
+                        <p>Completed revolutionary axial flux topology design. Achieved 40% weight reduction in simulations. Filed 3 key patents on cooling system innovations.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023</div>
+                        <h4>Prototype Success</h4>
+                        <p>Successfully tested 1.5MW scaled prototype. Validated 98% efficiency target. Demonstrated stable operation through 1000+ hours of testing.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024</div>
+                        <h4>Industry Partnership</h4>
+                        <p>Partnered with leading turbine manufacturers. Initiated full-scale 15MW design. Secured additional £8M industry co-funding.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <h4>Commercialization Path</h4>
+                        <p>Full-scale prototype under construction. Field testing site selected in North Sea. Commercial deployment targeted for 2027.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Project Gallery</h2>
+            <p class="section-subtitle">Visual journey through our innovations</p>
+
+            <div class="gallery-filter">
+                <button class="filter-btn active" onclick="filterGallery('all')">All</button>
+                <button class="filter-btn" onclick="filterGallery('lab')">Laboratory</button>
+                <button class="filter-btn" onclick="filterGallery('simulation')">Simulations</button>
+                <button class="filter-btn" onclick="filterGallery('prototype')">Prototypes</button>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="lab">
+                    <img src="Pic/wind turbine.png" alt="Lab Testing">
+                    <div class="gallery-overlay">
+                        <h4>Superconductor Testing Lab</h4>
+                        <p>Advanced characterization facility</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="simulation">
+                    <img src="Pic/GeneratorDesign.png" alt="FEA Simulation">
+                    <div class="gallery-overlay">
+                        <h4>Electromagnetic FEA</h4>
+                        <p>Flux density distribution analysis</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="prototype">
+                    <img src="Pic/massive.png" alt="Prototype Assembly">
+                    <div class="gallery-overlay">
+                        <h4>1.5MW Prototype</h4>
+                        <p>Scaled demonstrator assembly</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="lab">
+                    <img src="Pic/MF.png" alt="Material Analysis">
+                    <div class="gallery-overlay">
+                        <h4>HTS Tape Analysis</h4>
+                        <p>Microscopic structure examination</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="simulation">
+                    <img src="Pic/wind turbine.png" alt="Thermal Simulation">
+                    <div class="gallery-overlay">
+                        <h4>Thermal Management</h4>
+                        <p>Cryogenic system modeling</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="prototype">
+                    <img src="Pic/wind turbine.png" alt="Field Installation">
+                    <div class="gallery-overlay">
+                        <h4>Offshore Installation</h4>
+                        <p>North Sea test deployment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Join the Energy Revolution</h2>
+            <p>We're actively seeking visionary partners to accelerate the deployment of this transformative technology. Together, we can power a sustainable future.</p>
+            <div class="cta-buttons">
+                <a href="index.html#contact" class="btn btn-outline">Partner With Us</a>
+                <a href="#" class="btn btn-outline">Download Technical Brief</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>UoE Supermachine Group</h3>
+                    <p>Pioneering the next generation of superconducting technologies for a sustainable energy future. Based at the University of Edinburgh's School of Engineering.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">tw</a>
+                        <a href="#" class="social-icon">yt</a>
+                        <a href="#" class="social-icon">rs</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#team">Research Team</a></li>
+                        <li><a href="index.html#projects">All Projects</a></li>
+                        <li><a href="index.html#laboratory">Facilities</a></li>
+                        <li><a href="index.html#news">Latest News</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Other Projects</h4>
+                    <ul>
+                        <li><a href="Project2.html">Aerospace Propulsion Systems</a></li>
+                        <li><a href="Project3.html">Flux Pump Technology</a></li>
+                        <li><a href="#">Marine Energy Converters</a></li>
+                        <li><a href="#">Industrial Motor Systems</a></li>
+                        <li><a href="#">Grid Storage Solutions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Technical Reports</a></li>
+                        <li><a href="#">Patent Portfolio</a></li>
+                        <li><a href="#">Career Opportunities</a></li>
+                        <li><a href="#">Industry Collaboration</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 University of Edinburgh Supermachine Group. All Rights Reserved. | Privacy Policy | Terms of Use</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Tech tabs functionality
+        function showTechTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tech-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tech-tab');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Gallery filter functionality
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter items
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.metric-card, .feature-row, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
