@@ -168,7 +168,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1> REBCO Predictor</h1>
+            <h1>🧊 REBCO Predictor</h1>
             <p>AI-powered Critical Current Density Prediction</p>
             <div style="background: #e3f2fd; color: #0d47a1; padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 0.95rem; border-left: 4px solid #2196f3;">
                 <strong>💡 Note:</strong> If the prediction results show significant deviation from your experimental data, this may indicate tape type differences. Please select <strong>Tape 21</strong> and input your data for model fine-tuning.
@@ -210,7 +210,7 @@
 
             <div class="form-group">
                 <label for="newTape">New Tape Research:</label>
-                <a href="New tape.html" class="predict-btn" style="display: inline-block; text-align: center; text-decoration: none; margin-bottom: 10px;">
+                <a href="new-tape.html" class="predict-btn" style="display: inline-block; text-align: center; text-decoration: none; margin-bottom: 10px;">
                     🆕 Access New Tape Prediction (Type 21)
                 </a>
                 <div class="input-hint">Click to access predictions for experimental tape Type 21</div>
@@ -235,14 +235,26 @@
             </div>
 
             <button type="submit" class="predict-btn" id="predictBtn">
-                 Predict Critical Current
+                🔮 Predict Critical Current
             </button>
         </form>
 
         <div id="result" class="result-section">
-            <div class="result-label">Predicted Critical Current Density:</div>
+            <div class="result-label">Per Unit Critical Current Density:</div>
             <div class="result-value" id="resultValue">-</div>
-            <div class="result-label">A/cm</div>
+            <div class="result-label">Normalized to 77K, 0T, 0° (Dimensionless)</div>
+
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                <div class="result-label">Reference (Robinson's Experiment):</div>
+                <div class="result-value" id="referenceValue" style="color: #6c757d; font-size: 1.2rem;">-</div>
+                <div class="result-label">A/cm² at 77K, 0T, 0°</div>
+            </div>
+
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                <div class="result-label">Predicted Absolute Value:</div>
+                <div class="result-value" id="absoluteValue" style="color: #28a745; font-size: 1.2rem;">-</div>
+                <div class="result-label">A/cm²</div>
+            </div>
         </div>
 
         <div id="error" class="error-message">
@@ -251,14 +263,16 @@
     </div>
 
     <script>
-        // API配置 - 使用你的实际IP地址
-         const API_BASE_URL = 'https://couples-skirt-dubai-sao.trycloudflare.com';
+        // API配置 - 使用隧道URL（请替换为你的实际隧道URL）
+        const API_BASE_URL = 'https://your-tunnel-url.trycloudflare.com';  // 替换为你的实际隧道URL
 
         // DOM元素
         const form = document.getElementById('predictionForm');
         const predictBtn = document.getElementById('predictBtn');
         const resultSection = document.getElementById('result');
         const resultValue = document.getElementById('resultValue');
+        const referenceValue = document.getElementById('referenceValue');
+        const absoluteValue = document.getElementById('absoluteValue');
         const errorSection = document.getElementById('error');
         const errorText = document.getElementById('errorText');
         const serverStatus = document.getElementById('serverStatus');
@@ -266,17 +280,24 @@
         // 检查服务器状态
         async function checkServerStatus() {
             try {
-                const response = await fetch(`${API_BASE_URL}/health`);
+                const response = await fetch(`${API_BASE_URL}/health`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
                 if (response.ok) {
                     const data = await response.json();
-                    serverStatus.textContent = '🟢 Server Online - Ready for predictions';
+                    serverStatus.textContent = `🟢 Server Online - ${data.model_status === 'loaded' ? 'Model Ready' : 'Test Mode'}`;
                     serverStatus.className = 'server-status online';
+                    console.log('Server response:', data);
                     return true;
                 } else {
-                    throw new Error('Server not responding');
+                    throw new Error(`Server responded with status: ${response.status}`);
                 }
             } catch (error) {
-                serverStatus.textContent = '🔴 Server Offline - Please check your server';
+                console.error('Server check error:', error);
+                serverStatus.textContent = '🔴 Server Offline - Please start your server';
                 serverStatus.className = 'server-status offline';
                 return false;
             }
@@ -295,11 +316,25 @@
         }
 
         // 显示结果
-        function showResult(value) {
-            resultValue.textContent = value.toLocaleString('en-US', {
+        function showResult(prediction, perUnit, reference) {
+            // 主要显示标幺值
+            resultValue.textContent = perUnit.toLocaleString('en-US', {
+                minimumFractionDigits: 4,
+                maximumFractionDigits: 4
+            });
+
+            // Robinson实验参考值
+            referenceValue.textContent = reference.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            // 预测的绝对值
+            absoluteValue.textContent = prediction.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 4
             });
+
             resultSection.classList.add('show');
             hideError();
         }
@@ -324,6 +359,13 @@
                 angle: parseFloat(document.getElementById('angle').value)
             };
 
+            // 验证磁场和角度的逻辑关系
+            const fieldAngleError = validateFieldAndAngle();
+            if (fieldAngleError) {
+                showError(fieldAngleError);
+                return;
+            }
+
             // 动态验证温度范围
             if ((wireType === 8 || wireType === 15) && formData.temperature > 105) {
                 showError('Temperature for this wire type should not exceed 105K');
@@ -343,25 +385,79 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
                     },
                     body: JSON.stringify(formData)
                 });
 
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
                 const data = await response.json();
+                console.log('Prediction response:', data);
 
                 if (data.success) {
-                    showResult(data.prediction);
+                    showResult(data.prediction, data.per_unit_value || 0, data.reference_value || 0);
                 } else {
                     showError(data.error || 'Prediction failed');
                 }
 
             } catch (error) {
                 console.error('Prediction error:', error);
-                showError('Failed to connect to prediction server. Please check if your server is running.');
+                if (error.message.includes('fetch')) {
+                    showError('Cannot connect to server. Please check if your Flask server is running on port 5000.');
+                } else {
+                    showError(`Connection error: ${error.message}`);
+                }
             } finally {
                 predictBtn.disabled = false;
                 predictBtn.innerHTML = '🔮 Predict Critical Current';
             }
+        });
+
+        // 磁场和角度的逻辑约束
+        function validateFieldAndAngle() {
+            const magneticField = parseFloat(document.getElementById('magneticField').value) || 0;
+            const angle = parseFloat(document.getElementById('angle').value) || 0;
+
+            // 当磁场为0时，角度必须为0
+            if (magneticField === 0 && angle !== 0) {
+                return "When magnetic field is 0T, angle must be 0°";
+            }
+
+            // 当角度不为0时，磁场必须大于0
+            if (angle !== 0 && magneticField === 0) {
+                return "When angle is not 0°, magnetic field must be greater than 0T";
+            }
+
+            return null;
+        }
+
+        // 磁场输入变化时自动调整角度
+        document.getElementById('magneticField').addEventListener('input', function() {
+            const magneticField = parseFloat(this.value) || 0;
+            const angleInput = document.getElementById('angle');
+
+            if (magneticField === 0) {
+                angleInput.value = 0;
+                angleInput.disabled = true;
+            } else {
+                angleInput.disabled = false;
+            }
+        });
+
+        // 角度输入变化时检查磁场
+        document.getElementById('angle').addEventListener('input', function() {
+            const angle = parseFloat(this.value) || 0;
+            const magneticFieldInput = document.getElementById('magneticField');
+            const magneticField = parseFloat(magneticFieldInput.value) || 0;
+
+            if (angle !== 0 && magneticField === 0) {
+                showError("Please set magnetic field > 0 when using non-zero angle");
+                return;
+            }
+            hideError();
         });
 
         // 动态更新温度范围
