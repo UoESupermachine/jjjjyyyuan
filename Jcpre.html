@@ -224,8 +224,8 @@
 
             <div class="form-group">
                 <label for="magneticField">Magnetic Field (T):</label>
-                <input type="number" id="magneticField" step="0.001" min="0" max="30" value="1.0" required>
-                <div class="input-hint">Applied magnetic field strength in Tesla (0.000 - 30.000)</div>
+                <input type="number" id="magneticField" step="0.1" min="0" max="30" value="1.0" required>
+                <div class="input-hint">Applied magnetic field strength in Tesla (0.0 - 30.0)</div>
             </div>
 
             <div class="form-group">
@@ -240,20 +240,20 @@
         </form>
 
         <div id="result" class="result-section">
-            <div class="result-label">Per Unit Critical Current Density:</div>
+            <div class="result-label">Jcpredicted/Jc0:</div>
             <div class="result-value" id="resultValue">-</div>
-            <div class="result-label">Normalized to 77K, 0T, 0° (Dimensionless)</div>
+            <div class="result-label">Jc0=77K, 0T, 0° (Dimensionless)</div>
 
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
                 <div class="result-label">Reference (Robinson's Experiment):</div>
                 <div class="result-value" id="referenceValue" style="color: #6c757d; font-size: 1.2rem;">-</div>
-                <div class="result-label">A/cm² at 77K, 0T, 0°</div>
+                <div class="result-label">A/cm at 77K, 0T, 0°</div>
             </div>
 
             <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
                 <div class="result-label">Predicted Absolute Value:</div>
                 <div class="result-value" id="absoluteValue" style="color: #28a745; font-size: 1.2rem;">-</div>
-                <div class="result-label">A/cm²</div>
+                <div class="result-label">A/cm</div>
             </div>
         </div>
 
@@ -263,8 +263,8 @@
     </div>
 
     <script>
-        // API配置 - 使用新的隧道URL
-        const API_BASE_URL = ' https://fonts-apply-consists-moderate.trycloudflare.com';
+        // API配置 - 使用隧道URL（请替换为你的实际隧道URL）
+        const API_BASE_URL = 'https://couples-skirt-dubai-sao.trycloudflare.com';
 
         // DOM元素
         const form = document.getElementById('predictionForm');
@@ -297,7 +297,7 @@
                 }
             } catch (error) {
                 console.error('Server check error:', error);
-                serverStatus.textContent = '🔴 Server Offline - Please start your server';
+                serverStatus.textContent = '🔴 Server Offline - Please contact s2739323@ed.ac.uk';
                 serverStatus.className = 'server-status offline';
                 return false;
             }
@@ -346,7 +346,7 @@
             // 检查服务器状态
             const serverOnline = await checkServerStatus();
             if (!serverOnline) {
-                showError('Server is offline. Please start your server first.');
+                showError('Server is offline. Please Contact s2739323@ed.ac.uk');
                 return;
             }
 
@@ -412,7 +412,7 @@
                 }
             } finally {
                 predictBtn.disabled = false;
-                predictBtn.innerHTML = '🔮 Predict Critical Current';
+                predictBtn.innerHTML = ' Predict Critical Current';
             }
         });
 
