@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Themes & Projects Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 50%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(49,130,206, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(49,130,206, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(49,130,206, 0.1) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Main Container */
+        .projects-section {
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Title */
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: #4a5568;
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-top: 30px;
+        }
+
+        /* Network Visualization Container */
+        .network-container {
+            position: relative;
+            min-height: 800px;
+            margin-bottom: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* SVG for connections */
+        .connections-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line {
+            stroke: #4a5568;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5, 5;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .connection-line.active {
+            stroke: url(#gradient-active);
+            stroke-width: 3;
+            stroke-dasharray: none;
+            opacity: 1;
+            filter: drop-shadow(0 0 10px rgba(49,130,206, 0.5));
+            animation: pulse-line 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-line {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Research Themes (Left Side) */
+        .themes-column {
+            position: absolute;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+
+        .theme-node {
+            background:  #ffffff;
+            backdrop-filter: blur(20px);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+            border-radius: 20px;
+            padding: 25px 35px;
+            margin: 40px 0;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            min-width: 250px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-node::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-node:hover::before {
+            opacity: 1;
+        }
+
+        .theme-node:hover {
+            transform: translateX(10px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .theme-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .theme-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .theme-description {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        /* Applications (Right Side) */
+        .applications-column {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+
+        .app-node {
+            background:  #ffffff;
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 30px;
+            margin: 50px 0;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            min-width: 280px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .app-node.wind {
+    border: 2px solid #48bb78;
+    background: linear-gradient(135deg, #f0fff4, #ffffff);
+}
+
+.app-node.aerospace {
+    border: 2px solid #4299e1;
+    background: linear-gradient(135deg, #ebf8ff, #ffffff);
+}
+
+.app-node.marine {
+    border: 2px solid #9f7aea;
+    background: linear-gradient(135deg, #faf5ff, #ffffff);
+}
+
+
+        .app-node::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transition: all 0.5s ease;
+        }
+
+        .app-node:hover::after {
+            top: -150%;
+            left: -150%;
+        }
+
+        .app-node:hover {
+            transform: translateX(-10px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .app-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .app-description {
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .app-projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .project-tag {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            color: #a5b4fc;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-tag:hover {
+            background: rgba(99, 102, 241, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Center Projects Display */
+        .center-projects {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            z-index: 2;
+        }
+
+        .center-title {
+            text-align: center;
+            color: #2d3748
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+
+        .project-hub {
+            background: #ffffff;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-hub::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            animation: rotate 15s linear infinite;
+        }
+
+        .hub-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .active-projects-count {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .count-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .count-label {
+            color: #4a5568;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-list {
+            margin-top: 25px;
+        }
+
+        .mini-project {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 3px solid;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mini-project.active {
+            border-left-color: #48bb78;
+        }
+
+        .mini-project.development {
+            border-left-color: #f6ad55;
+        }
+
+        .mini-project:hover {
+            background: rgba(99, 102, 241, 0.2);
+            transform: translateX(5px);
+        }
+
+        .mini-project-name {
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .mini-project-status {
+            color: #718096;
+            font-size: 0.8rem;
+            margin-top: 3px;
+        }
+
+        /* Projects Grid Section */
+        .projects-detail {
+            margin-top: 120px;
+            padding-top: 60px;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .projects-detail-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 60px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background:  #ffffff;
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .project-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .project-status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(72, 187, 120, 0.2);
+            color: #48bb78;
+            border: 1px solid #48bb78;
+        }
+
+        .status-development {
+            background: rgba(246, 173, 85, 0.2);
+            color: #f6ad55;
+            border: 1px solid #f6ad55;
+        }
+
+        .project-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .meta-label {
+            color: #718096;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .meta-tag {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .themes-column {
+                left: 5%;
+            }
+            .applications-column {
+                right: 5%;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .network-container {
+                min-height: auto;
+                flex-direction: column;
+                padding: 40px 0;
+            }
+
+            .themes-column,
+            .applications-column {
+                position: relative;
+                left: auto;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .center-projects {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                max-width: 500px;
+                margin: 40px auto;
+            }
+
+            .connections-svg {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-node,
+            .app-node {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+      .project-more-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #3182ce;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.project-more-link:hover {
+    color: #2b6cb0;
+    border-bottom: 1px solid #2b6cb0;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <div class="projects-section">
+        <!-- Header -->
+        <div class="section-header">
+            <h1 class="section-title">Research Themes & Applications</h1>
+            <p class="section-subtitle">Exploring the interconnections between our research and applications</p>
+        </div>
+
+        <!-- Network Visualization -->
+        <div class="network-container">
+            <!-- SVG for connection lines -->
+            <svg class="connections-svg" id="connections">
+                <defs>
+                    <linearGradient id="gradient-active" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#3182ce;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#63b3ed;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#90cdf4;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <!-- Research Themes (Left) -->
+            <div class="themes-column">
+                <div class="theme-node" data-theme="electromagnetic">
+                    <span class="theme-icon"></span>
+                    <div class="theme-title"> Superconducting Modeling</div>
+                    <div class="theme-description">Multiphysics Superconductivity Modeling with H-formulation</div>
+                </div>
+
+                <div class="theme-node" data-theme="cooling">
+                    <span class="theme-icon"></span>
+                    <div class="theme-title">Cooling Systems</div>
+                    <div class="theme-description">Cryogenic cooling solutions for superconducting machines</div>
+                </div>
+
+                <div class="theme-node" data-theme="ai">
+                    <span class="theme-icon"></span>
+                    <div class="theme-title">AI & Machine Learning</div>
+                    <div class="theme-description">Empowering Industrial Applications with AI</div>
+                </div>
+            </div>
+
+            <!-- Center Hub -->
+            <div class="center-projects">
+                <div class="center-title">Active Research Hub</div>
+                <div class="project-hub">
+                    <div class="hub-content">
+                        <div class="active-projects-count">
+                            <div class="count-number">4</div>
+                            <div class="count-label">Active Projects</div>
+                        </div>
+                        <div class="project-list">
+                            <div class="mini-project active">
+                                <div class="mini-project-name">SuperWind 15MW</div>
+                                <div class="mini-project-status">Active • Wind Energy</div>
+                            </div>
+                            <div class="mini-project active">
+                                <div class="mini-project-name">AeroHTS</div>
+                                <div class="mini-project-status">Active • Aerospace</div>
+                            </div>
+                            <div class="mini-project development">
+                                <div class="mini-project-name">MarineDrive</div>
+                                <div class="mini-project-status">Development • Marine</div>
+                            </div>
+                            <div class="mini-project active">
+                                <div class="mini-project-name">AITools</div>
+                                <div class="mini-project-status">Active • Tools developement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications (Right) -->
+            <div class="applications-column">
+                <div class="app-node wind" data-app="wind">
+                    <span class="app-icon"></span>
+                    <div class="app-title">Wind Energy</div>
+                    <div class="app-description">Next-generation wind turbines</div>
+                    <div class="app-projects">
+                        <span class="project-tag">Superconducting wind turbine</span>
+                        <span class="project-tag">15MW</span>
+                        <span class="project-tag">High power density</span>
+                    </div>
+                </div>
+
+                <div class="app-node aerospace" data-app="aerospace">
+                    <span class="app-icon"></span>
+                    <div class="app-title">Aerospace</div>
+                    <div class="app-description">Cryogenic motors for zero-emission electric aircraft</div>
+                    <div class="app-projects">
+                        <span class="project-tag">AeroHTS</span>
+                        <span class="project-tag">E-Flight</span>
+                        <span class="project-tag">SkyDrive</span>
+                    </div>
+                </div>
+
+                <div class="app-node marine" data-app="marine">
+                    <span class="app-icon"></span>
+                    <div class="app-title">Marine</div>
+                    <div class="app-description">Efficient propulsion for ships and submarines</div>
+                    <div class="app-projects">
+                        <span class="project-tag">MarineDrive</span>
+                        <span class="project-tag">AquaProp</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Projects Section -->
+        <div class="projects-detail">
+            <h2 class="projects-detail-title">Projects Portfolio</h2>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">SuperWind 15MW</h3>
+                        <span class="project-status-badge status-active">Active</span>
+                    </div>
+                    <p class="project-description">
+                        Royal Academy of Engineering funded project developing 15MW superconducting wind turbine generators.
+                        This groundbreaking initiative aims to achieve unprecedented power density improvements through innovative electromagnetic design.
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Electromagnetic Modelling</span>
+                                <span class="meta-tag">Cooling Systems</span>
+                            </div>
+                        </div>
+                      <a class="project-more-link" href="/projects/superwind15mw.html">More →</a>
+
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">SuperWind 15MW</h3>
+                        <span class="project-status-badge status-active">Active</span>
+                    </div>
+                    <p class="project-description">
+                        Royal Academy of Engineering funded project developing 15MW superconducting wind turbine generators.
+                        This groundbreaking initiative aims to achieve unprecedented power density improvements through innovative electromagnetic design.
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Electromagnetic Modelling</span>
+                                <span class="meta-tag">Cooling Systems</span>
+                            </div>
+                        </div>
+                    <a class="project-more-link" href="/projects/superwind15mw.html">More →</a>
+                    </div>
+                </div>
+
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">SuperWind 15MW</h3>
+                        <span class="project-status-badge status-active">Active</span>
+                    </div>
+                    <p class="project-description">
+                        Royal Academy of Engineering funded project developing 15MW superconducting wind turbine generators.
+                        This groundbreaking initiative aims to achieve unprecedented power density improvements through innovative electromagnetic design.
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Electromagnetic Modelling</span>
+                                <span class="meta-tag">Cooling Systems</span>
+                            </div>
+                        </div>
+                    <a class="project-more-link" href="/projects/superwind15mw.html">More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Draw connection lines between themes and applications
+        function drawConnections() {
+            const svg = document.getElementById('connections');
+            const themes = document.querySelectorAll('.theme-node');
+            const apps = document.querySelectorAll('.app-node');
+
+            // Clear existing lines
+            svg.innerHTML = svg.innerHTML.substring(0, svg.innerHTML.indexOf('</defs>') + 7);
+
+            // Define connections (theme -> applications)
+            const connections = {
+                'electromagnetic': ['wind', 'aerospace', 'marine'],
+                'cooling': ['wind', 'aerospace', 'marine'],
+                'ai': ['wind', 'aerospace']
+            };
+
+            themes.forEach(theme => {
+                const themeType = theme.dataset.theme;
+                const themeRect = theme.getBoundingClientRect();
+                const svgRect = svg.getBoundingClientRect();
+
+                const themeX = themeRect.right - svgRect.left;
+                const themeY = themeRect.top + themeRect.height / 2 - svgRect.top;
+
+                apps.forEach(app => {
+                    const appType = app.dataset.app;
+
+                    if (connections[themeType] && connections[themeType].includes(appType)) {
+                        const appRect = app.getBoundingClientRect();
+                        const appX = appRect.left - svgRect.left;
+                        const appY = appRect.top + appRect.height / 2 - svgRect.top;
+
+                        // Create curved path
+                        const midX = (themeX + appX) / 2;
+                        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+                        // Create a bezier curve
+                        const d = `M ${themeX} ${themeY} Q ${midX} ${themeY}, ${midX} ${(themeY + appY) / 2} T ${appX} ${appY}`;
+
+                        path.setAttribute('d', d);
+                        path.setAttribute('class', 'connection-line active');
+                        path.setAttribute('data-theme', themeType);
+                        path.setAttribute('data-app', appType);
+
+                        svg.appendChild(path);
+                    }
+                });
+            });
+        }
+
+        // Initialize connections when page loads
+        window.addEventListener('load', () => {
+            setTimeout(drawConnections, 100);
+        });
+
+        // Redraw on window resize
+        window.addEventListener('resize', () => {
+            drawConnections();
+        });
+
+        // Interactive hover effects
+        document.querySelectorAll('.theme-node').forEach(theme => {
+            theme.addEventListener('mouseenter', () => {
+                const themeType = theme.dataset.theme;
+                document.querySelectorAll('.connection-line').forEach(line => {
+                    if (line.dataset.theme === themeType) {
+                        line.style.strokeWidth = '4';
+                        line.style.opacity = '1';
+                        line.style.filter = 'drop-shadow(0 0 20px rgba(49,130,206, 0.8))';
+                    } else {
+                        line.style.opacity = '0.1';
+                    }
+                });
+
+                // Highlight connected applications
+                document.querySelectorAll('.app-node').forEach(app => {
+                    const connections = {
+                        'electromagnetic': ['wind', 'aerospace', 'marine'],
+                        'cooling': ['wind', 'aerospace', 'marine'],
+                        'ai': ['wind', 'marine']
+                    };
+
+                    if (connections[themeType] && connections[themeType].includes(app.dataset.app)) {
+                        app.style.transform = 'translateX(-10px) scale(1.05)';
+                        app.style.boxShadow = '0 20px 60px rgba(49,130,206, 0.5)';
+                    } else {
+                        app.style.opacity = '0.3';
+                    }
+                });
+            });
+
+            theme.addEventListener('mouseleave', () => {
+                document.querySelectorAll('.connection-line').forEach(line => {
+                    line.style.strokeWidth = '';
+                    line.style.opacity = '';
+                    line.style.filter = '';
+                });
+
+                document.querySelectorAll('.app-node').forEach(app => {
+                    app.style.transform = '';
+                    app.style.boxShadow = '';
+                    app.style.opacity = '';
+                });
+            });
+        });
+
+        // Application hover effects
+        document.querySelectorAll('.app-node').forEach(app => {
+            app.addEventListener('mouseenter', () => {
+                const appType = app.dataset.app;
+                document.querySelectorAll('.connection-line').forEach(line => {
+                    if (line.dataset.app === appType) {
+                        line.style.strokeWidth = '4';
+                        line.style.opacity = '1';
+                        line.style.filter = 'drop-shadow(0 0 20px rgba(49,130,206, 0.8))';
+                    } else {
+                        line.style.opacity = '0.1';
+                    }
+                });
+
+                // Highlight connected themes
+                document.querySelectorAll('.theme-node').forEach(theme => {
+                    const connections = {
+                        'wind': ['electromagnetic', 'cooling', 'ai'],
+                        'aerospace': ['electromagnetic', 'cooling'],
+                        'marine': ['electromagnetic', 'cooling', 'ai']
+                    };
+
+                    if (connections[appType] && connections[appType].includes(theme.dataset.theme)) {
+                        theme.style.transform = 'translateX(10px) scale(1.05)';
+                        theme.style.boxShadow = '0 20px 60px rgba(49,130,206, 0.5)';
+                    } else {
+                        theme.style.opacity = '0.3';
+                    }
+                });
+            });
+
+            app.addEventListener('mouseleave', () => {
+                document.querySelectorAll('.connection-line').forEach(line => {
+                    line.style.strokeWidth = '';
+                    line.style.opacity = '';
+                    line.style.filter = '';
+                });
+
+                document.querySelectorAll('.theme-node').forEach(theme => {
+                    theme.style.transform = '';
+                    theme.style.boxShadow = '';
+                    theme.style.opacity = '';
+                });
+            });
+        });
+
+        // Animate lines on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(drawConnections, 200);
+
+                    // Animate the lines drawing
+                    document.querySelectorAll('.connection-line').forEach((line, index) => {
+                        const length = line.getTotalLength();
+                        line.style.strokeDasharray = length;
+                        line.style.strokeDashoffset = length;
+                        line.style.animation = `drawLine 1.5s ease forwards ${index * 0.2}s`;
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const networkContainer = document.querySelector('.network-container');
+        if (networkContainer) {
+            observer.observe(networkContainer);
+        }
+
+        // Add CSS animation for line drawing
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes drawLine {
+                to {
+                    stroke-dashoffset: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Project card animations
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+
+        // Add click interactions for project tags
+        document.querySelectorAll('.project-tag').forEach(tag => {
+            tag.style.cursor = 'pointer';
+            tag.addEventListener('click', () => {
+                // Find matching project card
+                const projectName = tag.textContent;
+                document.querySelectorAll('.project-card').forEach(card => {
+                    const cardName = card.querySelector('.project-name').textContent;
+                    if (cardName.includes(projectName.split(' ')[0])) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        card.style.animation = 'highlight 1s ease';
+                        setTimeout(() => {
+                            card.style.animation = '';
+                        }, 1000);
+                    }
+                });
+            });
+        });
+
+        // Add highlight animation
+        const highlightStyle = document.createElement('style');
+        highlightStyle.textContent = `
+            @keyframes highlight {
+                0%, 100% {
+                    box-shadow: 0 20px 60px rgba(49,130,206, 0.3);
+                }
+                50% {
+                    box-shadow: 0 20px 80px rgba(49,130,206, 0.6);
+                    transform: translateY(-10px) scale(1.02);
+                }
+            }
+        `;
+        document.head.appendChild(highlightStyle);
+    </script>
+</body>
+</html>
+
+

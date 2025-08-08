@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Markus Mueller | UoE Supermachine Group</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding-top: var(--header-height);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #003d7a;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #003d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark-color);
+        }
+
+        /* Header */
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            white-space: nowrap;
+        }
+
+        nav {
+            height: 100%;
+        }
+
+        .nav-menu {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-menu li {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 0 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 100px 0;
+            background: #fff;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: start;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-image-container {
+            text-align: center;
+            position: sticky;
+            top: 120px;
+        }
+
+        .profile-image {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.02);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--light-color);
+            border-radius: 50%;
+            color: var(--dark-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .professor-info h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .professor-designation {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .professor-bio {
+            margin-bottom: 40px;
+            color: #555;
+        }
+
+        .professor-bio p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .contact-info {
+            background: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .contact-item i {
+            width: 30px;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+
+        .contact-item span {
+            font-size: 1rem;
+        }
+
+        .external-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .external-links .btn {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        /* Research Areas Quick Overview */
+        .research-overview {
+            background: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .research-overview h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .research-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .research-tag {
+            background: #fff;
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: #fff;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .copyright {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .profile-image-container {
+                position: static;
+                margin-bottom: 20px;
+            }
+
+            .professor-info h1 {
+                font-size: 2.5rem;
+                text-align: center;
+            }
+
+            .professor-designation {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .professor-info h1 {
+                font-size: 2rem;
+            }
+
+            .external-links {
+                flex-direction: column;
+            }
+
+            .external-links .btn {
+                min-width: auto;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .research-tags {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="Pic/UoE.png" alt="UoE Supermachine Group Logo">
+                <h1>UoE Supermachine Group</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#team" class="active">Team</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="Lab.html">Laboratory</a></li>
+                    <li><a href="index.html#news">News</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-container">
+                <div class="profile-image-container">
+                    <img src="Pic/HY.png" alt="Professor Markus Mueller" class="profile-image">
+
+                    <div class="social-links">
+                        <a href="https://scholar.google.com/citations?user=bY4AQ14AAAAJ&hl=en" target="_blank" title="Google Scholar">
+                            🎓
+                        </a>
+                        <a href="https://eng.ed.ac.uk/about/people/dr-hongye-zhang" target="_blank" title="University Profile">
+                            🏛️
+                        </a>
+                        <a href="https://www.linkedin.com/in/hongye-zhang-%E5%BC%A0%E9%B8%BF%E4%B8%9A-8819b594/" target="_blank" title="LinkedIn">
+                            💼
+                        </a>
+                        <a href="mailto:hongye.zhang@ed.ac.uk" title="Email">
+                            ✉️
+                        </a>
+                    </div>
+                </div>
+
+                <div class="professor-info">
+                    <h1>Dr Hongye Zhang</h1>
+                    <div class="professor-designation">
+                        Board Member of the European Society for Applied Superconductivity (ESAS)<br>
+                        Board Member of the HTS Modelling Workgroup<br>
+                        Early Career Editorial Board member & Associate Editor for the Elsevier journal Superconductivity<br>
+                        University of Edinburgh
+                    </div>
+
+                   <div class="professor-bio"> <p>Dr. Hongye Zhang is a Lecturer (Assistant Professor) in Superconducting/Cryogenic Electric Machines at the University of Edinburgh and a Visiting Research Fellow at the University of Manchester. He holds a PhD in Applied Superconductivity from The University of Edinburgh (2021), as well as an MSc and BSc in Electrical Engineering from Xi'an Jiaotong University, China, and a Diplôme d’ingénieur from École Centrale de Lyon, France.</p>
+
+<p>In 2021, Dr. Zhang received the prestigious IEEE Council on Superconductivity Graduate Study Fellowship and has been involved in the £54-million H2GEAR project at The University of Manchester since then. His research focuses on the design, analysis, and testing of superconducting and cryogenic electric machines, as well as the application of hydrogen energy and artificial intelligence in clean energy systems.</p>
+
+<p>Dr. Zhang is actively engaged in the academic community, serving as a Board Member of the European Society for Applied Superconductivity (ESAS) and the HTS Modelling Workgroup, and as an Early Career Editorial Board member & Associate Editor for the *Elsevier Journal of Superconductivity*. He is also a Technical Editor for IEEE Transactions on Applied Superconductivity and a Programme Committee Member for SMT 2023.</p>
+
+<p>His interdisciplinary research integrates Electric Machines & Drives, Superconductor Technology, Cryogenic Techniques, Hydrogen Energy, and AI, with a particular focus on power-dense electric propulsion systems for Net Zero Transport. His long-term goal is to establish a world-leading research group that bridges academia and industry to drive the decarbonization of future transport systems.</p>
+</div>
+
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <div class="contact-item">
+                            <i>📧</i>
+                            <span>hongye.zhang@ed.ac.uk</span>
+                        </div>
+
+                        <div class="contact-item">
+                            <i>📍</i>
+                            <span>School of Engineering, King's Buildings, University of Edinburgh, EH9 3JL</span>
+                        </div>
+                    </div>
+
+                    <div class="external-links">
+                        <a href="https://eng.ed.ac.uk/about/people/dr-hongye-zhang" target="_blank" class="btn">
+                            University Profile
+                        </a>
+                        <a href="https://scholar.google.com/citations?user=bY4AQ14AAAAJ&hl=en" target="_blank" class="btn btn-outline">
+                            Google Scholar
+                        </a>
+                    </div>
+
+                    <div class="research-overview">
+                        <h3>Research Areas</h3>
+                        <div class="research-tags">
+                            <span class="research-tag">Superconducting Electric Machines</span>
+                            <span class="research-tag">Hydrogen Energy</span>
+                            <span class="research-tag">Cryogenic Techniques</span>
+                            <span class="research-tag">Clean Energy Systems</span>
+                            <span class="research-tag">Net Zero Transport</span>
+                            <span class="research-tag">Artificial Intelligence in Engineering</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#team">Team</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="Lab.html">Laboratory</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 University of Edinburgh Superconducting Group. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

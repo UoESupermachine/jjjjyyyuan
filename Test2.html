@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Laboratory Overview</title>
+<meta name="description" content="Concise overview of the lab, equipment, safety and visit information." />
+
+<style>
+  :root{
+    --bg:#ffffff;
+    --ink:#0b1220;
+    --muted:#586174;
+    --primary:#1a73e8;
+    --surface:#f5f7fb;
+    --card:#ffffff;
+    --border:#e6e8f0;
+    --radius:14px;
+    --container:1120px;
+    --shadow:0 8px 26px rgba(16,24,40,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0c1117;
+      --ink:#e6e8ee;
+      --muted:#9aa3af;
+      --primary:#6aa8ff;
+      --surface:#0b1323;
+      --card:#0f1624;
+      --border:#1f2a3a;
+      --shadow:0 12px 28px rgba(0,0,0,.45);
+    }
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(60% 40% at 10% 0%, rgba(26,115,232,.06), transparent 55%) no-repeat,
+      radial-gradient(40% 35% at 90% 10%, rgba(26,115,232,.04), transparent 60%) no-repeat,
+      var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:var(--container);margin:0 auto;padding:0 24px}
+
+  /* ---------- Header / Nav ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:saturate(160%) blur(10px);
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{
+    display:flex;align-items:center;gap:24px;
+    height:64px;
+  }
+  .brand{font-weight:700;letter-spacing:.2px}
+  .nav-links{margin-left:auto;display:flex;gap:16px}
+  .nav-links a{
+    padding:10px 12px;border-radius:10px;color:var(--muted);
+  }
+  .nav-links a.active{color:var(--ink);background:color-mix(in srgb, var(--primary) 12%, transparent)}
+  .progress{
+    position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--primary);
+    transition:width .1s linear;
+  }
+
+  /* ---------- Sections ---------- */
+  section{padding:72px 0}
+  section h2{
+    margin:0 0 8px;font-size:clamp(22px,2.6vw,28px);letter-spacing:.2px
+  }
+  .sub{color:var(--muted);margin:0 0 28px}
+
+  /* ---------- About ---------- */
+  .about{
+    display:grid;grid-template-columns: 1.2fr .8fr;gap:28px;align-items:center
+  }
+  .about .hero{
+    border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)
+  }
+  .about .hero img{aspect-ratio:16/9;object-fit:cover;width:100%}
+
+  @media (max-width:900px){.about{grid-template-columns:1fr}}
+
+  /* ---------- Equipment ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+  .chip{
+    border:1px solid var(--border);background:var(--card);border-radius:999px;
+    padding:8px 12px;font-size:14px;color:var(--muted);cursor:pointer;user-select:none
+  }
+  .chip[aria-pressed="true"]{color:var(--ink);border-color:color-mix(in srgb, var(--primary) 40%, var(--border));}
+
+  .equip-grid{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:20px}
+  @media (max-width:1024px){.equip-grid{grid-template-columns:repeat(2, minmax(0,1fr))}}
+  @media (max-width:640px){.equip-grid{grid-template-columns:1fr}}
+
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transform:translateZ(0);
+    transition:box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+    will-change: transform;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(16,24,40,.14)}
+  .cover{aspect-ratio:16/9;background:var(--surface);overflow:hidden;border-bottom:1px solid var(--border)}
+  .cover img{width:100%;height:100%;object-fit:cover}
+  .card-body{padding:16px 16px 18px}
+  .kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .title{font-weight:600;margin:0 0 6px}
+  .desc{color:var(--muted);font-size:14px;margin:0}
+
+  /* Tilt hint ring */
+  .card:focus-within{outline:2px solid color-mix(in srgb, var(--primary) 45%, transparent);outline-offset:2px}
+
+  /* ---------- Gallery ---------- */
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  @media (max-width:1100px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:740px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .g-item{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
+  .g-item img{width:100%;height:190px;object-fit:cover;display:block}
+  .g-item .g-cap{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;font-size:12px;color:#fff;
+    background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0));opacity:0;transition:opacity .2s}
+  .g-item:hover .g-cap{opacity:1}
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{
+    position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+    background:rgba(0,0,0,.82);z-index:1000
+  }
+  .lightbox.open{display:flex}
+  .lb-img{max-width:min(92vw,1400px);max-height:86vh;object-fit:contain}
+  .lb-cap{color:#e5e7eb;margin-top:8px;text-align:center}
+  .lb-btn{
+    position:absolute;top:50%;transform:translateY(-50%);
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);
+    color:#fff;border-radius:10px;padding:10px 12px;cursor:pointer;user-select:none
+  }
+  .lb-prev{left:16px}
+  .lb-next{right:16px}
+  .lb-close{position:absolute;top:16px;right:16px;padding:8px 10px}
+  .lb-zoom{position:absolute;bottom:18px;right:16px;padding:8px 10px}
+
+  /* ---------- Footer ---------- */
+  footer{padding:56px 0;border-top:1px solid var(--border);color:var(--muted)}
+  .small{font-size:13px;color:var(--muted)}
+
+  /* Reduce Motion */
+  @media (prefers-reduced-motion: reduce){
+    .card,.equip-grid,.gallery-grid{scroll-behavior:auto}
+    .card:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav" role="navigation" aria-label="Main">
+    <div class="brand">Lab Overview</div>
+    <nav class="nav-links">
+      <a href="#about" data-nav>About</a>
+      <a href="#equipment" data-nav>Equipment</a>
+      <a href="#safety" data-nav>Safety</a>
+      <a href="#visit" data-nav>Visit</a>
+      <a href="#gallery" data-nav>Gallery</a>
+    </nav>
+    <div class="progress" id="progress"></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================== ABOUT ================== -->
+  <section id="about" class="container">
+    <h2>About the Lab</h2>
+    <p class="sub">This page outlines our space, common instruments, usage guidance, and visiting information. Descriptions are factual and concise.</p>
+
+    <div class="about">
+      <div>
+        <p>Our lab supports measurement, cryogenic testing, and instrumentation work. Equipment is scheduled through the internal calendar. Users are expected to follow the posted safety rules and record usage details where required.</p>
+        <p class="small">Notes: Specifications and availability may change with maintenance. Contact the manager for up‑to‑date booking and training.</p>
+      </div>
+      <div class="hero">
+        <!-- Keep your own hero image here if you have one -->
+        <img src="Pic/Lab/Image (26).jpeg" alt="General lab area" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== EQUIPMENT ================== -->
+  <section id="equipment" class="container">
+    <h2>Common Equipment</h2>
+    <p class="sub">Cards below are assembled from your existing image links and concise captions. Text sits under images—no overlap.</p>
+
+    <!-- Filter chips (optional) -->
+    <div class="chips" id="chips" aria-label="Filter equipment">
+      <button class="chip" aria-pressed="true" data-filter="all">All</button>
+      <button class="chip" aria-pressed="false" data-filter="measurement">Measurement</button>
+      <button class="chip" aria-pressed="false" data-filter="cryogenic">Cryogenic</button>
+      <button class="chip" aria-pressed="false" data-filter="fixture">Fixture</button>
+    </div>
+
+    <div class="equip-grid" id="equip-grid" aria-live="polite"></div>
+
+    <!-- ======== EQUIPMENT SOURCE (PUT YOUR ORIGINAL FIGURES HERE) ======== -->
+    <!-- Keep all your original <figure> with <img src> and <figcaption>. We preserve links & text. -->
+    <div id="equip-source" hidden>
+      <figure data-tags="fixture">
+        <img src="Pic/Lab/Image (10).jpeg" alt="Superconducting coil testing setup" />
+        <figcaption>Coil testing setup. Used for characterising superconducting coils under controlled conditions.</figcaption>
+      </figure>
+
+      <figure data-tags="measurement">
+        <img src="Pic/Lab/Image (25).png" alt="Measurement and control systems" />
+        <figcaption>Measurement &amp; control instrumentation for data acquisition and system control.</figcaption>
+      </figure>
+
+      <figure data-tags="cryogenic">
+        <img src="Pic/Lab/Image (26).jpeg" alt="Cryogenic test setup" />
+        <figcaption>Cryogenic test setup. Basic configuration for low‑temperature experiments.</figcaption>
+      </figure>
+
+      <!-- Paste more of your original figures here... -->
+    </div>
+  </section>
+
+  <!-- ================== SAFETY ================== -->
+  <section id="safety" class="container">
+    <h2>Safety &amp; Use</h2>
+    <p class="sub">Follow posted procedures. Training is required before operating temperature, pressure, or high‑current systems.</p>
+    <ul>
+      <li>Wear appropriate PPE in the area. Tie back hair and secure loose clothing.</li>
+      <li>Only trained users may operate cryogenic, vacuum, or high‑voltage equipment.</li>
+      <li>Log equipment time and any issues. Report faults to the lab manager.</li>
+      <li>Keep benches clear; label samples and chemicals.</li>
+    </ul>
+  </section>
+
+  <!-- ================== VISIT ================== -->
+  <section id="visit" class="container">
+    <h2>Visit &amp; Contact</h2>
+    <p class="sub">For access or tours, please email the lab contact with a short note on your purpose and preferred times.</p>
+    <div class="small">Location: Building / Room. &nbsp; Contact: name@university.edu</div>
+  </section>
+
+  <!-- ================== GALLERY ================== -->
+  <section id="gallery" class="container">
+    <h2>Gallery</h2>
+    <p class="sub">Images below reuse your links. Click to view in a lightbox. Keyboard: ←/→ to navigate, Esc to close.</p>
+    <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
+
+    <!-- ======== GALLERY SOURCE (PUT YOUR ORIGINAL FIGURES HERE) ======== -->
+    <div id="gallery-source" hidden>
+      <!-- Reuse the same or additional images; captions kept as-is -->
+      <figure>
+        <img src="Pic/Lab/Image (10).jpeg" alt="Coil fixture close-up">
+        <figcaption>Coil fixture close‑up.</figcaption>
+      </figure>
+      <figure>
+        <img src="Pic/Lab/Image (25).png" alt="DAQ on bench">
+        <figcaption>DAQ on bench.</figcaption>
+      </figure>
+      <figure>
+        <img src="Pic/Lab/Image (26).jpeg" alt="Cryostat panel">
+        <figcaption>Cryostat panel.</figcaption>
+      </figure>
+      <!-- Paste more of your original figures here... -->
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container small">This page aims to be informative and neutral. Content is provided as-is and may be updated.</div>
+</footer>
+
+<!-- ================== LIGHTBOX ================== -->
+<div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
+  <img class="lb-img" id="lb-img" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
+  <button class="lb-btn lb-prev" id="lb-prev" aria-label="Previous">◀</button>
+  <button class="lb-btn lb-next" id="lb-next" aria-label="Next">▶</button>
+  <button class="lb-btn lb-close" id="lb-close" aria-label="Close">✕</button>
+  <button class="lb-btn lb-zoom" id="lb-zoom" aria-label="Zoom">⤢</button>
+</div>
+
+<script>
+/* ---------- Scroll progress & active nav ---------- */
+(function(){
+  const progress = document.getElementById('progress');
+  const links = [...document.querySelectorAll('[data-nav]')];
+  const ids = links.map(a => a.getAttribute('href'));
+  const sections = ids.map(id => document.querySelector(id));
+
+  function onScroll(){
+    const t = document.documentElement;
+    const height = t.scrollHeight - t.clientHeight;
+    progress.style.width = (t.scrollTop / height * 100) + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  },{rootMargin:'-40% 0px -50% 0px', threshold:[0,1]});
+  sections.forEach(s => s && io.observe(s));
+})();
+
+/* ---------- Build Equipment cards from SOURCE ---------- */
+(function(){
+  const src = document.getElementById('equip-source');
+  const grid = document.getElementById('equip-grid');
+  const chips = document.getElementById('chips');
+  const items = [...src.querySelectorAll('figure')].map((fig, i) => {
+    const img = fig.querySelector('img');
+    const cap = fig.querySelector('figcaption')?.textContent?.trim() || '';
+    const tags = (fig.dataset.tags || '').toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
+    const title = (img.alt || 'Equipment').replace(/\.$/,'');
+    const el = document.createElement('article');
+    el.className = 'card';
+    el.dataset.tags = tags.join(',');
+    el.innerHTML = `
+      <div class="cover"><img loading="lazy" src="${img.src}" alt="${img.alt}"></div>
+      <div class="card-body">
+        ${tags.length ? `<div class="kicker">${tags.join(' · ')}</div>` : ''}
+        <h3 class="title">${title}</h3>
+        <p class="desc">${cap}</p>
+      </div>
+    `;
+    tiltify(el);
+    return el;
+  });
+
+  items.forEach(el => grid.appendChild(el));
+
+  // Filtering
+  chips?.addEventListener('click', e=>{
+    const b = e.target.closest('.chip'); if(!b) return;
+    chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true');
+    const f = b.dataset.filter;
+    items.forEach(el=>{
+      if(f==='all' || (el.dataset.tags||'').split(',').includes(f)) {
+        el.style.display='';
+      } else {
+        el.style.display='none';
+      }
+    });
+  });
+})();
+
+/* ---------- Build Gallery from SOURCE + Lightbox ---------- */
+(function(){
+  const src = document.getElementById('gallery-source');
+  const grid = document.getElementById('gallery-grid');
+  const figures = [...src.querySelectorAll('figure')];
+
+  figures.forEach((f, idx)=>{
+    const img = f.querySelector('img'); const cap = f.querySelector('figcaption')?.textContent?.trim() || '';
+    const a = document.createElement('a'); a.href = img.src; a.dataset.index = idx;
+    a.className = 'g-item'; a.setAttribute('role','button'); a.setAttribute('aria-label','Open image');
+    a.innerHTML = `<img loading="lazy" src="${img.src}" alt="${img.alt}"><div class="g-cap">${cap || img.alt || ''}</div>`;
+    grid.appendChild(a);
+  });
+
+  const lightbox = (() => {
+    const box = document.getElementById('lightbox');
+    const I = document.getElementById('lb-img');
+    const C = document.getElementById('lb-cap');
+    const prev = document.getElementById('lb-prev');
+    const next = document.getElementById('lb-next');
+    const close = document.getElementById('lb-close');
+    const zoom = document.getElementById('lb-zoom');
+    let i = 0, zoomed = false;
+
+    const open = (n)=>{ i = n; render(); box.classList.add('open'); };
+    const hide = ()=>{ box.classList.remove('open'); zoomed=false; I.style.transform=''; };
+    const render = ()=>{
+      const f = figures[i];
+      const img = f.querySelector('img'); const cap = f.querySelector('figcaption')?.textContent?.trim() || img.alt || '';
+      I.src = img.src; I.alt = img.alt || ''; C.textContent = cap;
+    };
+    const nav = d => { i = (i + d + figures.length) % figures.length; render(); };
+
+    box.addEventListener('click', e=>{ if(e.target===box) hide(); });
+    close.addEventListener('click', hide);
+    prev.addEventListener('click', ()=>nav(-1));
+    next.addEventListener('click', ()=>nav(1));
+    zoom.addEventListener('click', ()=>{
+      zoomed = !zoomed;
+      I.style.transform = zoomed ? 'scale(1.15)' : '';
+    });
+
+    document.addEventListener('keydown', e=>{
+      if(!box.classList.contains('open')) return;
+      if(e.key==='Escape') hide();
+      if(e.key==='ArrowRight') nav(1);
+      if(e.key==='ArrowLeft') nav(-1);
+      if(e.key.toLowerCase()==='z') zoom.click();
+    });
+
+    grid.addEventListener('click', e=>{
+      const a = e.target.closest('.g-item'); if(!a) return;
+      e.preventDefault(); open(parseInt(a.dataset.index,10) || 0);
+    });
+
+    return { open };
+  })();
+})();
+
+/* ---------- Subtle 3D tilt on cards ---------- */
+function tiltify(card){
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReduced) return;
+
+  let rect;
+  function onMove(e){
+    const p = e.touches ? e.touches[0] : e;
+    const x = (p.clientX - rect.left) / rect.width - 0.5;
+    const y = (p.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `rotateX(${(-y*3).toFixed(2)}deg) rotateY(${(x*4).toFixed(2)}deg) translateY(-2px)`;
+  }
+  function onEnter(){ rect = card.getBoundingClientRect(); card.style.willChange='transform'; }
+  function onLeave(){ card.style.transform='translateY(0)'; card.style.willChange='auto'; }
+  card.addEventListener('mouseenter', onEnter);
+  card.addEventListener('mousemove', onMove);
+  card.addEventListener('mouseleave', onLeave);
+  card.addEventListener('touchstart', onEnter, {passive:true});
+  card.addEventListener('touchmove', onMove, {passive:true});
+  card.addEventListener('touchend', onLeave);
+}
+</script>
+</body>
+</html>
