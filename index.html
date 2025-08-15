@@ -1292,6 +1292,56 @@
     font-size: 0.82rem;
     color: #787be7;
 }
+/* === Projects Showcase wrapper (三项目外框 + 大按钮) === */
+.projects-showcase {
+    background: #fff;
+    border: 2px solid rgba(99,102,241,0.18);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 20px 40px rgba(99,102,241,0.08);
+    margin-top: 24px;
+    text-align: center; /* 让 big-more 居中 */
+}
+
+.projects-showcase .projects-grid {
+    margin: 0; /* 去掉外间距，让网格贴合外框 */
+}
+
+/* 大的 More 按钮 */
+.big-more {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 22px;
+    padding: 14px 20px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+    color: #fff;
+    border-radius: 12px;
+    transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.big-more:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(59,130,246,0.25);
+    opacity: .95;
+}
+
+/* 小屏优化 */
+@media (max-width: 768px) {
+    .projects-showcase {
+        padding: 18px;
+        border-radius: 14px;
+    }
+    .big-more {
+        font-size: 1.05rem;
+        padding: 12px 16px;
+        border-radius: 10px;
+    }
+}
+
+
+
 
 /* 响应式调整 */
 @media (max-width: 1400px) {
@@ -1452,14 +1502,14 @@
                 <!-- Team Member 1 -->
                 <div class="team-member">
                     <div class="member-img">
-                        <img src="/Pic/MM.png" alt="Team Member 1">
+                        <img src="Pic/MM.png" alt="Team Member 1">
                     </div>
                     <div class="member-info">
                         <h3>Markus Mueller</h3>
                         <div class="member-role">Professor</div>
                         <p class="member-bio">Royal Academy of Engineering Chair in Emerging Technologies to investigate new high power density high temperature superconducting machines for net-zero energy and transport applications.</p>
                         <div class="social-links">
-                            <a href="/Markus.html"><i>more</i></a>
+                            <a href="Markus.html"><i>more</i></a>
                         </div>
                     </div>
                 </div>
@@ -1482,7 +1532,7 @@
                 <!-- Team Member 3 -->
                 <div class="team-member">
                     <div class="member-img">
-                        <img src="Pic/Ozan.png" alt="Team Member 3">
+                        <img src="Pic/Ozan.jpg" alt="Team Member 3">
                     </div>
                     <div class="member-info">
                         <h3>Ozan Keysan</h3>
@@ -1735,86 +1785,83 @@
             </div>
         </div>
 
-        <!-- Detailed Projects Section -->
-        <div class="projects-detail">
-            <h2 class="projects-detail-title">Projects Portfolio</h2>
+<!-- Detailed Projects Section -->
+<div class="projects-detail">
+    <h2 class="projects-detail-title">Projects Portfolio</h2>
+    <div class="projects-showcase">
 
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-name">SuperWind 15MW</h3>
-                        <span class="project-status-badge status-active">Active</span>
-                    </div>
-                   <p class="project-description">
-    Supported by the Royal Academy of Engineering, this project focuses on the development of a 15MW superconducting wind turbine generator. The research covers electromagnetic design, superconducting materials, and cryogenic cooling technology, aiming to enhance power density and efficiency for future large-scale wind energy applications.
-</p>
-
-                    <div class="project-meta">
-                        <div class="meta-row">
-                            <span class="meta-label">Themes:</span>
-                            <div class="meta-tags">
-                                <span class="meta-tag">Electromagnetic Modelling</span>
-                                <span class="meta-tag">Cooling Systems</span>
-                            </div>
-                        </div>
-                      <a class="project-more-link" href="/Project1.html">More</a>
-
-                    </div>
+        <!-- 项目网格 -->
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-name">SuperWind 15MW</h3>
+                    <span class="project-status-badge status-active">Active</span>
                 </div>
-
-
-
-
-
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-name">Hydrogen Electric Propulsion</h3>
-                        <span class="project-status-badge status-active">Active</span>
-                    </div>
-                    <p class="project-description">
-
-                        One of our team members is actively involved in the H2GEAR hydrogen-electric propulsion programme at the University of Manchester, contributing expertise in cryogenic cooling and scalable system integration for future sustainable aviation.
-
-                    </p>
-                    <div class="project-meta">
-                        <div class="meta-row">
-                            <span class="meta-label">Themes:</span>
-                            <div class="meta-tags">
-                                <span class="meta-tag">Electromagnetic Modelling</span>
-                                <span class="meta-tag">Cooling Systems</span>
-                            </div>
+                <p class="project-description">
+                    Supported by the Royal Academy of Engineering, this project focuses on the development of a 15MW superconducting wind turbine generator. The research covers electromagnetic design, superconducting materials, and cryogenic cooling technology, aiming to enhance power density and efficiency for future large-scale wind energy applications.
+                </p>
+                <div class="project-meta">
+                    <div class="meta-row">
+                        <span class="meta-label">Themes:</span>
+                        <div class="meta-tags">
+                            <span class="meta-tag">Electromagnetic Modelling</span>
+                            <span class="meta-tag">Cooling Systems</span>
                         </div>
-                    <a class="project-more-link" href="/Project2.html">More</a>
                     </div>
-                </div>
-
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-name">SuperWind 15MW</h3>
-                        <span class="project-status-badge status-active">Active</span>
-                    </div>
-                    <p class="project-description">
-                        Royal Academy of Engineering funded project developing 15MW superconducting wind turbine generators.
-                        This groundbreaking initiative aims to achieve unprecedented power density improvements through innovative electromagnetic design.
-                    </p>
-                    <div class="project-meta">
-                        <div class="meta-row">
-                            <span class="meta-label">Themes:</span>
-                            <div class="meta-tags">
-                                <span class="meta-tag">Electromagnetic Modelling</span>
-                                <span class="meta-tag">Cooling Systems</span>
-                            </div>
-                        </div>
-                    <a class="project-more-link" href="/Project3.html">More</a>
-                    </div>
+                    <a class="project-more-link" href="/Project1.html">More</a>
                 </div>
             </div>
-        </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-name">Hydrogen Electric Propulsion</h3>
+                    <span class="project-status-badge status-active">Active</span>
+                </div>
+                <p class="project-description">
+                    One of our team members is actively involved in the H2GEAR hydrogen-electric propulsion programme at the University of Manchester, contributing expertise in cryogenic cooling and scalable system integration for future sustainable aviation.
+                </p>
+                <div class="project-meta">
+                    <div class="meta-row">
+                        <span class="meta-label">Themes:</span>
+                        <div class="meta-tags">
+                            <span class="meta-tag">Electromagnetic Modelling</span>
+                            <span class="meta-tag">Cooling Systems</span>
+                        </div>
+                    </div>
+                    <a class="project-more-link" href="/Project2.html">More</a>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-name">SuperWind 15MW</h3>
+                    <span class="project-status-badge status-active">Active</span>
+                </div>
+                <p class="project-description">
+                    Royal Academy of Engineering funded project developing 15MW superconducting wind turbine generators.
+                    This groundbreaking initiative aims to achieve unprecedented power density improvements through innovative electromagnetic design.
+                </p>
+                <div class="project-meta">
+                    <div class="meta-row">
+                        <span class="meta-label">Themes:</span>
+                        <div class="meta-tags">
+                            <span class="meta-tag">Electromagnetic Modelling</span>
+                            <span class="meta-tag">Cooling Systems</span>
+                        </div>
+                    </div>
+                    <a class="project-more-link" href="/Project3.html">More</a>
+                </div>
+            </div>
+        </div> <!-- 结束 projects-grid -->
+
+        <!-- 大的 More 按钮，放在网格外 -->
+        <a class="big-more" href="Project list.html">More</a>
     </div>
+</div>
+
 
 
     <!-- Laboratory Introduction Section -->

@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Edinburgh University Superconducting Group</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        #header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            white-space: nowrap;
+        }
+
+        nav {
+            margin-left: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 60px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+        }
+
+        /* Projects Grid */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(99, 102, 241, 0.14);
+            box-shadow: 0 15px 38px rgba(99, 102, 241, 0.07);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.27);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .project-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .project-status-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .status-active {
+            background: rgba(72, 187, 120, 0.15);
+            color: #2f855a;
+            border: 2px solid #68d391;
+        }
+
+        .status-development {
+            background: rgba(246, 173, 85, 0.15);
+            color: #c05621;
+            border: 2px solid #f6ad55;
+        }
+
+        .status-completed {
+            background: rgba(99, 102, 241, 0.15);
+            color: #553c9a;
+            border: 2px solid #a78bfa;
+        }
+
+        .status-planning {
+            background: rgba(107, 114, 128, 0.15);
+            color: #374151;
+            border: 2px solid #9ca3af;
+        }
+
+        .project-duration {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .project-description {
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .meta-label {
+            color: #718096;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .meta-tag {
+            background: rgba(99, 102, 241, 0.12);
+            border-radius: 12px;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            color: #6366f1;
+            font-weight: 500;
+        }
+
+        .project-funding {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        /* Section Headers */
+        .section-divider {
+            margin: 80px 0 40px 0;
+            text-align: center;
+        }
+
+        .section-divider h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-divider p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 86, 179, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: none;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 86, 179, 0.4);
+        }
+
+        .back-to-top.show {
+            display: block;
+        }
+
+        /* Footer */
+        #footer {
+            background: var(--dark-color);
+            color: #fff;
+            padding: 50px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-about p {
+            color: #ccc;
+        }
+
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        /* Hidden class for filtering */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+
+            .project-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .project-status-badge {
+                margin-top: 10px;
+            }
+        }
+
+        /* Animation */
+        .project-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="Pic/UoE.png" alt="Team Logo">
+                <h1>UoE Supermachine Group</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#team">Our Team</a></li>
+                    <li><a href="projects.html" class="active">Projects</a></li>
+                    <li><a href="Lab.html">Our Laboratory</a></li>
+                    <li><a href="index.html#news">Recent News</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Our Projects</h1>
+                <p class="page-subtitle">Explore our comprehensive portfolio of superconducting technology research projects, from active developments to completed milestones</p>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <h3 class="filter-title">Filter Projects</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="active">Active</button>
+                    <button class="filter-btn" data-filter="development">Development</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                    <button class="filter-btn" data-filter="planning">Planning</button>
+                </div>
+            </div>
+
+            <!-- Active Projects Section -->
+            <div class="section-divider">
+                <h2>Active Projects</h2>
+                <p>Currently ongoing research initiatives</p>
+            </div>
+
+            <div class="projects-container" id="active-projects">
+                <!-- Active Project 1 -->
+                <div class="project-card" data-status="active">
+                    <div class="project-header">
+                        <h3 class="project-name">SuperWind 15MW Superconducting Wind Turbine</h3>
+                        <span class="project-status-badge status-active">Active</span>
+                    </div>
+                    <div class="project-duration">2023 - 2026 | Royal Academy of Engineering</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Electromagnetic Modeling</span>
+                                <span class="meta-tag">Cooling Systems</span>
+                                <span class="meta-tag">Wind Energy</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Project 2 -->
+                <div class="project-card" data-status="active">
+                    <div class="project-header">
+                        <h3 class="project-name">H2GEAR Hydrogen Electric Propulsion</h3>
+                        <span class="project-status-badge status-active">Active</span>
+                    </div>
+                    <div class="project-duration">2024 - 2027 | University of Manchester Partnership</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Aerospace</span>
+                                <span class="meta-tag">Hydrogen Technology</span>
+                                <span class="meta-tag">Electric Propulsion</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Project 3 -->
+                <div class="project-card" data-status="active">
+                    <div class="project-header">
+                        <h3 class="project-name">AI-Enhanced Superconducting Design Tools</h3>
+                        <span class="project-status-badge status-active">Active</span>
+                    </div>
+                    <div class="project-duration">2024 - 2025 | Internal Research</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">AI & Machine Learning</span>
+                                <span class="meta-tag">Design Optimization</span>
+                                <span class="meta-tag">Modeling Tools</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Development Projects Section -->
+            <div class="section-divider">
+                <h2>Development Projects</h2>
+                <p>Projects in early development and testing phases</p>
+            </div>
+
+            <div class="projects-container" id="development-projects">
+                <!-- Development Project 1 -->
+                <div class="project-card" data-status="development">
+                    <div class="project-header">
+                        <h3 class="project-name">Marine Superconducting Propulsion Systems</h3>
+                        <span class="project-status-badge status-development">Development</span>
+                    </div>
+                    <div class="project-duration">2024 - 2027 | EU Horizon Europe</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Marine Engineering</span>
+                                <span class="meta-tag">Propulsion Systems</span>
+                                <span class="meta-tag">Environmental Impact</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Development Project 2 -->
+                <div class="project-card" data-status="development">
+                    <div class="project-header">
+                        <h3 class="project-name">Contactless Flux Pump Technology</h3>
+                        <span class="project-status-badge status-development">Development</span>
+                    </div>
+                    <div class="project-duration">2023 - 2026 | EPSRC Grant</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Flux Pump Technology</span>
+                                <span class="meta-tag">Contactless Systems</span>
+                                <span class="meta-tag">Rotor Design</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Development Project 3 -->
+                <div class="project-card" data-status="development">
+                    <div class="project-header">
+                        <h3 class="project-name">Advanced Cryogenic Cooling Systems</h3>
+                        <span class="project-status-badge status-development">Development</span>
+                    </div>
+                    <div class="project-duration">2024 - 2026 | Industry Partnership</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Cryogenic Systems</span>
+                                <span class="meta-tag">Energy Efficiency</span>
+                                <span class="meta-tag">Thermal Management</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Projects Section -->
+            <div class="section-divider">
+                <h2>Completed Projects</h2>
+                <p>Successfully completed research initiatives and their achievements</p>
+            </div>
+
+            <div class="projects-container" id="completed-projects">
+                <!-- Completed Project 1 -->
+                <div class="project-card" data-status="completed">
+                    <div class="project-header">
+                        <h3 class="project-name">Cryogenic Cooling System Optimization</h3>
+                        <span class="project-status-badge status-completed">Completed</span>
+                    </div>
+                    <div class="project-duration">2020 - 2023 | InnovateUK</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Cryogenic Systems</span>
+                                <span class="meta-tag">Energy Efficiency</span>
+                                <span class="meta-tag">Thermal Management</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Project 2 -->
+                <div class="project-card" data-status="completed">
+                    <div class="project-header">
+                        <h3 class="project-name">HTS Material Characterization Study</h3>
+                        <span class="project-status-badge status-completed">Completed</span>
+                    </div>
+                    <div class="project-duration">2019 - 2022 | EPSRC</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Material Science</span>
+                                <span class="meta-tag">HTS Materials</span>
+                                <span class="meta-tag">Characterization</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Project 3 -->
+                <div class="project-card" data-status="completed">
+                    <div class="project-header">
+                        <h3 class="project-name">Superconducting Motor Prototype Development</h3>
+                        <span class="project-status-badge status-completed">Completed</span>
+                    </div>
+                    <div class="project-duration">2018 - 2021 | EU Framework Programme</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Motor Design</span>
+                                <span class="meta-tag">Prototype Development</span>
+                                <span class="meta-tag">Testing</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planning Projects Section -->
+            <div class="section-divider">
+                <h2>Planning Projects</h2>
+                <p>Future research initiatives in planning phase</p>
+            </div>
+
+            <div class="projects-container" id="planning-projects">
+                <!-- Planning Project 1 -->
+                <div class="project-card" data-status="planning">
+                    <div class="project-header">
+                        <h3 class="project-name">Next-Gen Fusion Energy Systems</h3>
+                        <span class="project-status-badge status-planning">Planning</span>
+                    </div>
+                    <div class="project-duration">2025 - 2028 | Proposal Stage</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Fusion Energy</span>
+                                <span class="meta-tag">Superconducting Magnets</span>
+                                <span class="meta-tag">Energy Systems</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Planning Project 2 -->
+                <div class="project-card" data-status="planning">
+                    <div class="project-header">
+                        <h3 class="project-name">Quantum Computing Integration</h3>
+                        <span class="project-status-badge status-planning">Planning</span>
+                    </div>
+                    <div class="project-duration">2025 - 2027 | Research Proposal</div>
+                    <p class="project-description">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                    <div class="project-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Themes:</span>
+                            <div class="meta-tags">
+                                <span class="meta-tag">Quantum Computing</span>
+                                <span class="meta-tag">Superconducting Qubits</span>
+                                <span class="meta-tag">Integration</span>
+                            </div>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Funding:</span>
+                            <span class="project-funding">XXX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <h3>UoE Superconducting Group</h3>
+                    <p>The University of Edinburgh Superconducting Group is dedicated to advancing the practical implementation of superconducting technologies in electrical machines.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#team">Our Team</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="Lab.html">Our Laboratory</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Research Areas</h3>
+                    <ul>
+                        <li><a href="#">Applied Superconductivity</a></li>
+                        <li><a href="#">Electric Motor Design</a></li>
+                        <li><a href="#">Cryogenic Cooling</a></li>
+                        <li><a href="#">Wind Energy</a></li>
+                        <li><a href="#">Aerospace Applications</a></li>
+                        <li><a href="#">Marine Propulsion</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 University of Edinburgh Superconducting Group. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    // Filter project cards
+                    projectCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.classList.remove('hidden');
+                        } else {
+                            const cardStatus = card.getAttribute('data-status');
+                            if (cardStatus === filter) {
+                                card.classList.remove('hidden');
+                            } else {
+                                card.classList.add('hidden');
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Back to top button functionality
+            const backToTopButton = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Smooth scrolling for section dividers
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Project card animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = Math.random() * 0.3 + 's';
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            projectCards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
