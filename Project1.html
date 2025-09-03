@@ -1,760 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Superconducting Wind Turbine Project | UoE Superconducting Group</title>
-    <style>
-        /* Global Styles */
-        :root {
-            --primary-color: #0056b3;
-            --secondary-color: #17a2b8;
-            --dark-color: #343a40;
-            --light-color: #f8f9fa;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SuperMachine | SuperWind Platform (University of Edinburgh)</title>
+  <style>
+    :root { --primary-color:#0056b3; --secondary-color:#17a2b8; --dark-color:#343a40; --light-color:#f8f9fa; }
+    *{box-sizing:border-box; margin:0; padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji"; color:#333; background:#f4f4f4; line-height:1.6}
+    a{color:var(--primary-color); text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1200px; margin:0 auto; padding:0 20px}
+    .btn{display:inline-block; padding:10px 20px; background:var(--primary-color); color:#fff; border-radius:8px; transition:.2s}
+    .btn:hover{transform:translateY(-1px)}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    #header{position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(255,255,255,.95); box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    .header-container{display:flex; align-items:center; padding:14px 20px}
+    .logo{display:flex; align-items:center; gap:10px; margin-right:24px}
+    .logo img{height:44px}
+    .logo h1{font-size:1.25rem; white-space:nowrap}
+    nav ul{display:flex; gap:16px; list-style:none}
+    nav a{font-size:.95rem; padding:6px 4px}
+    nav a.active{color:var(--primary-color); font-weight:600}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
-        }
+    .hero{height:70vh; display:flex; align-items:center; margin-top:80px; color:#fff; background:linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)), url('Pic/hero_windfarm.jpg') center/cover no-repeat}
+    .hero h2{font-size:2.6rem; margin-bottom:10px}
+    .hero p{font-size:1.1rem; max-width:800px; opacity:.95}
 
-        a {
-            text-decoration: none;
-            color: var(--primary-color);
-        }
+    section{padding:70px 0; background:#fff}
+    section.alt{background:var(--light-color)}
+    .section-title{text-align:center; font-size:2rem; color:var(--dark-color); margin-bottom:28px}
 
-        ul {
-            list-style: none;
-        }
+    .grid-2{display:grid; grid-template-columns: 1.2fr .8fr; gap:36px; align-items:center}
+    .card{background:#fff; border-radius:12px; padding:22px; box-shadow:0 8px 20px rgba(0,0,0,.06)}
 
-        img {
-            max-width: 100%;
-        }
+    .tiles{display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:18px}
+    .tile{background:#fff; border-radius:12px; padding:20px; box-shadow:0 6px 16px rgba(0,0,0,.05)}
+    .tile h4{margin-bottom:8px}
+    .muted{color:#555}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    .tabs{margin-top:18px}
+    .tab-bar{display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid #e6e6e6}
+    .tab-btn{background:transparent; border:none; padding:12px 16px; cursor:pointer; color:#555}
+    .tab-btn.active{color:var(--primary-color); border-bottom:3px solid var(--primary-color)}
+    .tab{display:none; padding:18px 0}
+    .tab.active{display:block}
 
-        .btn {
-            display: inline-block;
-            padding: 10px 25px;
-            background: var(--primary-color);
-            color: #fff;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .gallery{display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:14px}
+    .gallery figure{border-radius:10px; overflow:hidden; height:220px}
+    .gallery img{width:100%; height:100%; object-fit:cover}
 
-        .btn:hover {
-            background: #003d7a;
-            transform: scale(1.02);
-        }
+    footer{background:var(--dark-color); color:#fff; padding:36px 0; text-align:center}
 
-        /* Header */
-        #header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
+    @media (max-width: 960px){ .grid-2{grid-template-columns:1fr} .hero h2{font-size:2rem} }
 
-       .header-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 15px 20px;
-    max-width: 1200px; /* Match the container max-width */
-    width: 100%;
+
+
+    /* --- Tabs: 文在上、图在下；图片更大 --- */
+.tab .grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;  /* 单列堆叠：先文字、后图片 */
+  gap: 22px;
 }
 
-        .logo {
-            display: flex;
-            align-items: center;
-             margin-right: 30px;
-        }
-
-        .logo img {
-            height: 50px;
-            margin-right: 10px;
-        }
-
-        .logo h1 {
-    font-size: 1.6rem; /* Make logo text smaller */
-    white-space: nowrap; /* Prevent logo text from wrapping */
-    margin-right: 30px;
+/* 包住图片的卡片 */
+.tab-visual {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
 }
 
-       .nav-menu {
-    display: flex;
-    justify-content: flex-start; /* Align menu items from the left */
-    flex-wrap: nowrap;
+/* 放大图片区域，等比缩放 */
+.tab-visual img {
+  width: 100%;
+  height: 520px;        /* 桌面端更高的可视高度 */
+  object-fit: contain;  /* 不裁切，完整展示 */
+  background: #fff;
 }
 
-.nav-menu li {
-    margin-left: 15px !important; /* Smaller margin between items */
-    white-space: nowrap; /* Prevent text wrapping within menu items */
+/* 移动端高度自适应 */
+@media (max-width: 960px) {
+  .tab-visual img { height: auto; }
 }
 
-.nav-menu a {
-    font-size: 0.9rem !important; /* Smaller font size */
-    padding: 5px 0; /* Add some vertical padding */
-}
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: var(--primary-color);
-        }
-
-        /* Project Hero Section */
-        .project-hero {
-            height: 80vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Pic/wind turbine.png') no-repeat center center/cover;
-            display: flex;
-            align-items: center;
-            color: #fff;
-            margin-top: 80px;
-        }
-
-        .project-hero-content {
-            max-width: 800px;
-        }
-
-        .project-hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .project-hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-
-        /* Project Overview */
-        .project-overview {
-            padding: 80px 0;
-            background: #fff;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-align: center;
-            color: var(--dark-color);
-        }
-
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 50px;
-            align-items: center;
-        }
-
-        .overview-text h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--dark-color);
-        }
-
-        .overview-text p {
-            margin-bottom: a20px;
-            color: #555;
-        }
-
-        .overview-text ul {
-            list-style: disc;
-            margin-left: 20px;
-            margin-bottom: 20px;
-        }
-
-        .overview-text ul li {
-            margin-bottom: 10px;
-        }
-
-        .overview-img img {
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Project Features */
-        .project-features {
-            padding: 80px 0;
-            background: var(--light-color);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--dark-color);
-        }
-
-        .feature-card p {
-            color: #555;
-        }
-
-        /* Technical Details */
-        .technical-details {
-            padding: 80px 0;
-            background: #fff;
-        }
-
-        .details-tabs {
-            margin-top: 40px;
-        }
-
-        .tab-buttons {
-            display: flex;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .tab-btn {
-            padding: 15px 30px;
-            background: transparent;
-            border: none;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #555;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn.active {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
-        }
-
-        .tab-content {
-            display: none;
-            padding: 20px 0;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .tab-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--dark-color);
-        }
-
-        .tab-content p {
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        .tab-img {
-            margin-top: 30px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        /* Gallery */
-        .project-gallery {
-            padding: 80px 0;
-            background: var(--light-color);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
-            overflow: hidden;
-            border-radius: 10px;
-            height: 250px;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Team */
-        .project-team {
-            padding: 80px 0;
-            background: #fff;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .team-member {
-            background: var(--light-color);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .team-member:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .member-img {
-            height: 280px;
-            overflow: hidden;
-        }
-
-        .member-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.5s ease;
-        }
-
-        .team-member:hover .member-img img {
-            transform: scale(1.05);
-        }
-
-        .member-info {
-            padding: 20px;
-        }
-
-        .member-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: var(--dark-color);
-        }
-
-        .member-role {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        /* Contact CTA */
-        .contact-cta {
-            padding: 80px 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('Pic/wind turbine.png') no-repeat center center/cover;
-            color: #fff;
-            text-align: center;
-        }
-
-        .contact-cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        .contact-cta p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-color);
-            color: #fff;
-            padding: 50px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-logo img {
-            height: 40px;
-            margin-bottom: 20px;
-        }
-
-        .footer-links h4 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-        }
-
-        .footer-links ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links ul li a {
-            color: #ccc;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links ul li a:hover {
-            color: #fff;
-            padding-left: 5px;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ccc;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .overview-grid,
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .overview-img {
-                order: -1;
-            }
-
-            .project-hero-content h1 {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .tab-buttons {
-                flex-wrap: wrap;
-            }
-
-            .tab-btn {
-                padding: 10px 20px;
-            }
-
-            .project-hero-content h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header id="header">
-        <div class="container header-container">
-            <div class="logo">
-                <img src="Pic/UoE.png" alt="UoE Superconducting Group Logo">
-                <h1>UoE Superconducting Group</h1>
-            </div>
+  <header id="header">
+    <div class="container header-container">
+      <div class="logo">
+        <img src="Pic/UoE.png" alt="UoE Superconducting Group" />
+        <h1>UoE Superconducting Group</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#team">Team</a></li>
+          <li><a class="active" href="#">Projects</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#team">Team</a></li>
-                    <li><a href="index.html#projects" class="active">Projects</a></li>
-                    <li><a href="#news">Recent News</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+  <section class="hero">
+    <div class="container">
+      <h2>SuperWind | HTS Wind Generator </h2>
+      <p>Air‑core HTS coil arrays with modular cryogenics for multi‑MW direct‑drive offshore wind and high power‑density machines.</p>
+      <p style="margin-top:12px"><a class="btn" href="#programme">Explore the project</a></p>
+    </div>
+  </section>
 
-                </ul>
-            </nav>
+ <!-- Programme -->
+<section id="programme">
+  <div class="container">
+    <h3 class="section-title">Programme</h3>
+    <div class="card">
+      <ul style="margin-top:10px; padding-left:18px; list-style:disc">
+        <li>Programme: RAEng Chair in Emerging Technology — <strong>SuperMachine</strong> (NetZero energy & transport).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Lead -->
+<section id="lead" class="alt">
+  <div class="container">
+    <h3 class="section-title">Lead</h3>
+    <div class="card">
+      <ul style="margin-top:10px; padding-left:18px; list-style:disc">
+        <li>Lead: Professor Markus Mueller, University of Edinburgh.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Platforms & Targets -->
+<section id="platforms">
+  <div class="container">
+    <h3 class="section-title">Platforms & Targets</h3>
+    <div class="card">
+      <ul style="margin-top:10px; padding-left:18px; list-style:disc">
+        <li>Platforms: <strong>SuperWind</strong>, <strong>SuperAero</strong>, <strong>SuperMarine</strong>. Targets: Y1–5 de-risking and demonstrator at TRL3/4; Y6–10+ towards industrial demonstration at TRL5/6.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Themes -->
+<section id="themes-overview" class="alt">
+  <div class="container">
+    <h3 class="section-title">Themes</h3>
+    <div class="tiles">
+      <article class="tile">
+        <h4>Theme A</h4>
+        <p class="muted">Electromagnetic modelling/design & experimental validation.</p>
+      </article>
+      <article class="tile">
+        <h4>Theme B</h4>
+        <p class="muted">Modular cryogenic system design & prototypes.</p>
+      </article>
+      <article class="tile">
+        <h4>Theme C</h4>
+        <p class="muted">HTS coil excitation (brushless/flux pumps).</p>
+      </article>
+      <article class="tile">
+        <h4>Theme D</h4>
+        <p class="muted">Platform-level demonstrators & industry collaboration.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+
+
+  <section class="alt" id="context">
+    <div class="container">
+      <h3 class="section-title">Context & Need</h3>
+      <div class="tiles">
+        <article class="tile">
+          <h4>Offshore wind targets</h4>
+          <p class="muted">UK: 40 GW by 2030; ~116 GW by 2050, with 4–5 GW per year. Turbines trending towards 15‑MW class.</p>
+        </article>
+        <article class="tile">
+          <h4>Generators — reference points</h4>
+          <p class="muted">IEA 15‑MW reference: PM generator ~370 t, ~40 W/kg. EcoSwing HTS generator: 3.6 MW, ~68.8 t, ~52 W/kg.</p>
+        </article>
+        <article class="tile">
+          <h4>SuperMachine concept</h4>
+          <p class="muted">Ironless structural support; HTS coil arrays replacing PMs and copper coils; brushless flux‑pump excitation; aiming for higher fields/current density and reduced reliance on rare earths.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes">
+  <div class="container">
+    <h3 class="section-title">Themes & Y1–Y5 focus</h3>
+    <div class="tabs">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="tA">Theme A Electromagnetics</button>
+        <button class="tab-btn" data-tab="tB">Theme B Cryogenics</button>
+        <button class="tab-btn" data-tab="tC">Theme C Excitation / Flux Pumps</button>
+        <button class="tab-btn" data-tab="tD">Theme D Platforms</button>
+      </div>
+
+      <!-- Theme A -->
+      <div id="tA" class="tab active">
+        <div class="grid-2">
+          <!-- 上：文字 -->
+          <div class="card">
+            <ul style="padding-left:18px; list-style:disc">
+              <li>Use the 1-MW C-GEN as the electromagnetic baseline (2D/3D FEA & Biot–Savart models), develop sizing tools and mechanical assessment methods.</li>
+              <li>Comparative designs and small demonstrators for experimental validation; include AC-loss modelling and exploratory ML methods.</li>
+            </ul>
+          </div>
+          <!-- 下：图片 -->
+          <figure class="card tab-visual">
+            <img src="Pic/MF.png" alt="1-MW C-GEN baseline" />
+          </figure>
         </div>
-    </header>
+      </div>
 
-    <!-- Project Hero Section -->
-    <section class="project-hero">
-        <div class="container">
-            <div class="project-hero-content">
-                <h1>Superconducting Wind Turbine Generators</h1>
-                <p>Revolutionizing wind energy with high power density superconducting technology</p>
-                <a href="#overview" class="btn">Learn More</a>
-            </div>
+      <!-- Theme B -->
+      <div id="tB" class="tab">
+        <div class="grid-2">
+          <div class="card">
+            <ul style="padding-left:18px; list-style:disc">
+              <li>Inspired by EU SUPRAPOWER (KIT): modular, pair-per-pole, layered and replaceable cryogenic cavity concept (A1–A5 with end windings).</li>
+              <li>Design for maintainability and replaceability; early component design and prototype validation.</li>
+            </ul>
+          </div>
+          <figure class="card tab-visual">
+            <img src="Pic/Modcro.png" alt="Modular cryogenic concept" />
+          </figure>
         </div>
-    </section>
+      </div>
 
-    <!-- Project Overview -->
-    <section id="overview" class="project-overview">
-        <div class="container">
-            <h2 class="section-title">Project Overview</h2>
-            <div class="overview-grid">
-                <div class="overview-text">
-                    <h2>Royal Academy of Engineering Funded Research</h2>
-                    <p>Our research team at the University of Edinburgh is developing next-generation superconducting wind turbine generators with significantly increased power density. This Royal Academy of Engineering funded project aims to overcome size and weight constraints in conventional designs while improving energy conversion efficiency.</p>
-                    <p>Key project objectives include:</p>
-                    <ul>
-                        <li>Develop lightweight superconducting generators achieving 40% weight reduction compared to conventional technologies</li>
-                        <li>Design and optimize cryogenic cooling systems for reliable operation in offshore environments</li>
-                        <li>Create novel electromagnetic designs that maximize the benefits of superconducting materials</li>
-                        <li>Demonstrate technical and economic feasibility for large-scale wind turbine applications</li>
-                    </ul>
-                    <p>This innovative approach has the potential to significantly reduce the cost of wind energy and enable larger, more efficient turbines for offshore installations.</p>
-                </div>
-                <div class="overview-img">
-                    <img src="Pic/massive.png" alt="Superconducting Wind Turbine Diagram">
-                </div>
-            </div>
+      <!-- Theme C -->
+      <div id="tC" class="tab">
+        <div class="grid-2">
+          <div class="card">
+            <ul style="padding-left:18px; list-style:disc">
+              <li>Brushless excitation of HTS coils using rotating/linear/standing-wave flux pumps; establish an open-circuit voltage (Voc) design tool.</li>
+              <li>Outputs & dissemination: EUCAS 2023, IET PEMD 2023, EFATS 2023, etc.</li>
+            </ul>
+          </div>
+          <figure class="card tab-visual">
+            <img src="Pic/flux_jiafu.png" alt="Flux-pump topologies" />
+          </figure>
         </div>
-    </section>
+      </div>
 
-    <!-- Project Features -->
-    <section class="project-features">
-        <div class="container">
-            <h2 class="section-title">Key Innovations</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>High Power Density</h3>
-                    <p>Our superconducting generators feature a significant size reduction with outer diameter reduced from 5.4m to 4m, and an actual mass reduction of 24% compared to conventional generators, making them ideal for offshore wind applications.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">❄️</div>
-                    <h3>Advanced Cryogenic Systems</h3>
-                    <p>Novel cryogenic cooling solutions designed specifically for the harsh marine environment ensure reliable operation with minimal maintenance requirements.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Improved Efficiency</h3>
-                    <p>Superconducting windings with near-zero resistance significantly reduce electrical losses, improving overall energy conversion efficiency and reducing operational costs.</p>
-                </div>
-            </div>
+      <!-- Theme D -->
+      <div id="tD" class="tab">
+        <div class="grid-2">
+          <div class="card">
+            <ul style="padding-left:18px; list-style:disc">
+              <li>Platform-level demonstrators for SuperWind / SuperAero / SuperMarine with industry collaboration and matched funding (indicative single project £5m+).</li>
+              <li>Trajectory: TRL3/4 → TRL5/6; UK supply-chain collaboration and commercial pathways (IP/incubation/licensing).</li>
+            </ul>
+          </div>
+          <figure class="card tab-visual">
+            <img src="Pic/roadmap.png" alt="Platform demonstrator roadmap" />
+          </figure>
         </div>
-    </section>
-
-    <!-- Technical Details -->
-    <section class="technical-details">
-        <div class="container">
-            <h2 class="section-title">Technical Details</h2>
-            <div class="details-tabs">
-                <div class="tab-buttons">
-                    <button class="tab-btn active" data-tab="tab1">Superconducting Materials</button>
-                    <button class="tab-btn" data-tab="tab2">Generator Design</button>
-                    <button class="tab-btn" data-tab="tab3">Cooling System</button>
-                    <button class="tab-btn" data-tab="tab4">Testing & Validation</button>
-                </div>
-
-                <div id="tab1" class="tab-content active">
-                    <h3>Superconducting Materials</h3>
-                    <p>Our research utilizes high-temperature superconductors (HTS) that maintain zero electrical resistance at temperatures achievable with modern cryogenic cooling systems. The primary materials being investigated include:</p>
-                    <ul>
-                        <li>YBCO (Yttrium Barium Copper Oxide) coated conductors</li>
-                        <li>MgB₂ (Magnesium Diboride) superconducting wires</li>
-                        <li>BSCCO (Bismuth Strontium Calcium Copper Oxide) tape conductors</li>
-                    </ul>
-                    <p>These materials enable operation at temperatures between 20-77K, significantly reducing the cooling requirements compared to traditional low-temperature superconductors.</p>
-                    <div class="tab-img">
-                        <img src="Pic/MF.png" alt="Superconducting Materials">
-                    </div>
-                </div>
-
-                <div id="tab2" class="tab-content">
-                    <h3>Generator Design</h3>
-                    <p>Our superconducting generator design incorporates several innovative features:</p>
-                    <ul>
-                        <li>Axial flux topology with HTS coils in the rotor, offering compact form factor and improved cooling accessibility</li>
-                        <li>Modular construction allowing for easier maintenance and component replacement</li>
-                        <li>Novel flux pump technology for contactless excitation of superconducting field coils</li>
-                        <li>Optimized electromagnetic design to maximize torque density</li>
-                        <li>Parallel development of a non-superconducting CGEN prototype for validation, which has been successfully completed</li>
-                    </ul>
-                    <p>The design targets a power density exceeding 136W/kg</p>
-                    <div class="tab-img">
-                        <img src="Pic/GeneratorDesign.png" alt="Generator Design">
-                    </div>
-                </div>
-
-                <div id="tab3" class="tab-content">
-                    <h3>Cooling System</h3>
-                    <p>The cryogenic cooling system is a critical component of our superconducting generator design:</p>
-                    <ul>
-                        <li>Closed-cycle cryocoolers with helium as the working fluid</li>
-                        <li>Redundant cooling paths to ensure reliability</li>
-                        <li>Advanced thermal management with multi-stage cooling</li>
-                        <li>Vacuum insulation techniques to minimize heat leakage</li>
-                        <li>Monitoring and control systems for temperature stability</li>
-                    </ul>
-                    <p>Our cooling design achieves a coefficient of performance (COP) significantly higher than conventional systems, reducing parasitic power losses.</p>
-                    <div class="tab-img">
-                        <img src="Pic/wind turbine.png" alt="Cooling System">
-                    </div>
-                </div>
-
-                <div id="tab4" class="tab-content">
-                    <h3>Testing & Validation</h3>
-                    <p>Our comprehensive testing program includes:</p>
-                    <ul>
-                        <li>Small-scale prototype testing in controlled laboratory environments</li>
-                        <li>Specialized testing of superconducting coils under varying magnetic fields</li>
-                        <li>Thermal cycling and accelerated aging tests</li>
-                        <li>Full-scale prototype testing under simulated operational conditions</li>
-                        <li>Finite element analysis validation of electromagnetic and mechanical performance</li>
-                    </ul>
-                    <p>Testing results have validated our design approach, demonstrating power densities and efficiencies exceeding our initial targets.</p>
-                    <div class="tab-img">
-                        <img src="Pic/wind turbine.png" alt="Testing and Validation">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Gallery -->
-    <section class="project-gallery">
-        <div class="container">
-            <h2 class="section-title">Project Gallery</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="Pic/wind turbine.png" alt="Wind Turbine Design">
-                </div>
-                <div class="gallery-item">
-                    <img src="Pic/wind turbine.png" alt="Superconducting Coils">
-                </div>
-                <div class="gallery-item">
-                    <img src="Pic/wind turbine.png" alt="Laboratory Testing">
-                </div>
-                <div class="gallery-item">
-                    <img src="Pic/wind turbine.png" alt="Prototype Development">
-                </div>
-                <div class="gallery-item">
-                    <img src="Pic/wind turbine.png" alt="Simulation Results">
-                </div>
-                <div class="gallery-item">
-                    <img src="Pic/wind turbine.png" alt="Field Testing">
-                </div>
-            </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
-    <!-- Contact CTA -->
-    <section class="contact-cta">
-        <div class="container">
-            <h2>Interested in Collaboration?</h2>
-            <p>We are actively seeking industry partners, academic collaborators, and funding opportunities to further develop and commercialize this technology. If you're interested in learning more or discussing potential collaboration, please contact us.</p>
-            <a href="index.html#contact" class="btn">Contact Us</a>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <img src="Pic/UoE.png" alt="UoE Superconducting Group Logo">
-                    </div>
-                    <p>The University of Edinburgh Superconducting Group is dedicated to advancing the practical implementation of superconducting technologies in electrical machines.</p>
-                </div>
+  <footer>
+    <div class="container">
+      <p>© 2025 University of Edinburgh Superconducting Group</p>
+    </div>
+  </footer>
 
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#about">About</a></li>
-                        <li><a href="index.html#team">Team</a></li>
-                        <li><a href="index.html#projects">Projects</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                    </ul>
-                </div>
+  <script>
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabs = document.querySelectorAll('.tab');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabs.forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
 
-                <div class="footer-links">
-                    <h4>Other Projects</h4>
-                    <ul>
-                        <li><a href="Project1.html">Superconducting Wind Turbines</a></li>
-                        <li><a href="Project2.html">Aerospace Electric Motors</a></li>
-                        <li><a href="Project3.html">Fusion Magnet Systems</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 University of Edinburgh Superconducting Group. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
-    <script>
-        // Tab Functionality
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons and contents
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-
-                // Add active class to current button and corresponding content
-                button.classList.add('active');
-                const tabId = button.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-
-        // Scroll effects for header
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.style.background = '#fff';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
-            }
-        });
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target){ e.preventDefault(); window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' }); }
+      });
+    });
+  </script>
 </body>
 </html>
